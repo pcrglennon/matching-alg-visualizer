@@ -38,6 +38,10 @@ public class MatchingAlgorithms {
 	return new ArrayList<int[]>(servNodes);
     }
 
+    public void setNumberNodes(int numberNodes) {
+	this.numberNodes = numberNodes;
+    }
+
      /**  -------------------------GREEDY ONLINE-------------------------  */
 
     public MatchInfo[] greedyOnlineMatch() {

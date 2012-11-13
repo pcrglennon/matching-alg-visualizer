@@ -55,6 +55,10 @@ public class VisualMatchPanel extends JPanel {
 	this.servNodes = servNodes;
     }
 
+    public void setAnimDelay(int animDelay) {
+	this.animDelay = animDelay;
+    }
+
     /**
      * Draw each online match one by one
      */
@@ -139,16 +143,16 @@ public class VisualMatchPanel extends JPanel {
 	//TODO - Wider Lines
 	for(MatchInfo match: onlineMatchesToDraw) {
 	    g.drawLine(match.rNode[0]*20, match.rNode[1]*20, match.sNode[0]*20, match.sNode[1]*20);
-	    //If drawDistances enabled, draw the distance between the nodes
+	    //If drawDistance is enabled, draw the distance between the nodes
 	    //at the midpoint of the edge joining them
-	    if(drawDistances) {
+	    if(drawDistance) {
 		g.drawString("" + match.distance, (((match.rNode[0]*20) + (match.sNode[0]*20)) / 2), (((match.rNode[1]*20) + (match.sNode[1]*20)) / 2));
 	    }
 	}
 	g.setColor(Color.BLUE);
 	for(MatchInfo match: offlineMatchesToDraw) {
 	    g.drawLine(match.rNode[0]*20, match.rNode[1]*20, match.sNode[0]*20, match.sNode[1]*20);
-	    if(drawDistances) {
+	    if(drawDistance) {
 		g.drawString("" + match.distance, (((match.rNode[0]*20) + (match.sNode[0]*20)) / 2), (((match.rNode[1]*20) + (match.sNode[1]*20)) / 2));
 	    }
 	}

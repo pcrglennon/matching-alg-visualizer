@@ -10,12 +10,14 @@ public class VisualMatchWindow implements ActionListener{
     private int animDelay;
     
     private static final int DEFAULT_NUMBER_NODES = 5;
-    private static final int DEFAULT_ANIM_DELAY = 1200;
+    private static final int DEFAULT_ANIM_DELAY = 1000;
     private static final int DEFAULT_MAX_DISTANCE = 20;
 
     private MatchingAlgorithms algs;
 
     private VisualMatchPanel vmPanel;
+    
+    private ConfigPanel configPanel;
 
     private JPanel buttonPanel;
     private JButton newNodesB;
@@ -56,6 +58,9 @@ public class VisualMatchWindow implements ActionListener{
 	vmPanel = new VisualMatchPanel(animDelay, DEFAULT_MAX_DISTANCE);
 	panel.add(vmPanel, BorderLayout.CENTER);
 
+	configPanel = new ConfigPanel();
+	panel.add(configPanel, BorderLayout.LINE_END);
+
 	setupButtonPanel();
 	panel.add(buttonPanel, BorderLayout.PAGE_END);
 
@@ -92,6 +97,7 @@ public class VisualMatchWindow implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == newNodesB) {
+	    algs.setNumberNodes(configPanel.getNumberNodes());
 	    algs.newRandomNodes();
 	    vmPanel.setNewNodes(algs.getReqNodes(), algs.getServNodes());
 	    vmPanel.repaint();
@@ -100,11 +106,13 @@ public class VisualMatchWindow implements ActionListener{
 	    clearB.setEnabled(true);
 	}
 	if(e.getSource() == onlineMatchB) {
+	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
 	    if(!vmPanel.onlineMatchDrawn) {
 		vmPanel.drawOnlineGreedyMatch(algs.greedyOnlineMatch());
 	    }
 	}
 	if(e.getSource() == offlineMatchB) {
+	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
 	    if(!vmPanel.offlineMatchDrawn) {
 		vmPanel.drawOfflineGreedyMatch(algs.greedyOfflineMatch());
 	    }
