@@ -40,8 +40,6 @@ public class MatchingAlgorithms {
 
      /**  -------------------------GREEDY ONLINE-------------------------  */
 
-    //TODO - Double check this w/ real examples
-
     public MatchInfo[] greedyOnlineMatch() {
 	MatchInfo[] matches = new MatchInfo[numberNodes];
 	ArrayList<int[]> servNodesCopy = getServNodes();
@@ -56,7 +54,7 @@ public class MatchingAlgorithms {
 		    selectedNodeIndex = j;
 		}
 	    }
-	    matches[i] = new MatchInfo(reqNodes.get(i), servNodes.get(selectedNodeIndex), minDistance);
+	    matches[i] = new MatchInfo(reqNodes.get(i), servNodesCopy.get(selectedNodeIndex), minDistance);
 	    servNodesCopy.remove(selectedNodeIndex);
 	}
 	return matches;

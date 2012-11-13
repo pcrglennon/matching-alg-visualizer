@@ -10,7 +10,7 @@ public class VisualMatchWindow implements ActionListener{
     private int animDelay;
     
     private static final int DEFAULT_NUMBER_NODES = 5;
-    private static final int DEFAULT_ANIM_DELAY = 1000;
+    private static final int DEFAULT_ANIM_DELAY = 1200;
     private static final int DEFAULT_MAX_DISTANCE = 20;
 
     private MatchingAlgorithms algs;
