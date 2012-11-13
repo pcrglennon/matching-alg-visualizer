@@ -15,6 +15,7 @@ public class ConfigPanel extends JPanel {
 
     private NumericTextField numberNodesField;
     private NumericTextField animDelayField;
+    private JCheckBox drawDistanceCB;
 
     public ConfigPanel() {
 	super();
@@ -25,6 +26,9 @@ public class ConfigPanel extends JPanel {
 	
 	animDelayField = new NumericTextField(4);
 	animDelayField.setText("1000");
+
+	drawDistanceCB = new JCheckBox();
+	drawDistanceCB.setSelected(true);
 
 	addComponentsToPanel();
     }
@@ -54,6 +58,20 @@ public class ConfigPanel extends JPanel {
 	c.gridx = 1;
 	c.gridy = 2;
 	add(animDelayField, c);
+
+	c.gridx = 1;
+	c.gridy = 3;
+	c.gridwidth = 2;
+	add(Box.createVerticalStrut(10));
+
+	c.gridwidth = 1;
+	c.gridx = 0;
+	c.gridy = 4;
+	add(new JLabel(" Distances "), c);
+	
+	c.gridx = 1;
+	c.gridy = 4;
+	add(drawDistanceCB, c);
     }
 
     public int getNumberNodes() {
@@ -74,6 +92,10 @@ public class ConfigPanel extends JPanel {
 	    toReturn = 0;
 	}
 	return toReturn;
+    }
+
+    public boolean drawDistanceEnabled() {
+	return drawDistanceCB.isSelected();
     }
 
 }

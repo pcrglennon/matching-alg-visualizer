@@ -59,6 +59,10 @@ public class VisualMatchPanel extends JPanel {
 	this.animDelay = animDelay;
     }
 
+    public void enableDrawDistance(boolean drawDistance) {
+	this.drawDistance = drawDistance;
+    }
+
     /**
      * Draw each online match one by one
      */

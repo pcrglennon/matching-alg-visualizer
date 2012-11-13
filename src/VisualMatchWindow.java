@@ -107,12 +107,14 @@ public class VisualMatchWindow implements ActionListener{
 	}
 	if(e.getSource() == onlineMatchB) {
 	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
+	    vmPanel.enableDrawDistance(configPanel.drawDistanceEnabled());
 	    if(!vmPanel.onlineMatchDrawn) {
 		vmPanel.drawOnlineGreedyMatch(algs.greedyOnlineMatch());
 	    }
 	}
 	if(e.getSource() == offlineMatchB) {
 	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
+	    vmPanel.enableDrawDistance(configPanel.drawDistanceEnabled());
 	    if(!vmPanel.offlineMatchDrawn) {
 		vmPanel.drawOfflineGreedyMatch(algs.greedyOfflineMatch());
 	    }
