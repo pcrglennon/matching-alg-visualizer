@@ -9,7 +9,7 @@ public class VisualMatchWindow implements ActionListener{
     private int numberNodes;
     private int animDelay;
     
-    private static final int DEFAULT_NUMBER_NODES = 5;
+    private static final int DEFAULT_NUMBER_NODES = 4;
     private static final int DEFAULT_ANIM_DELAY = 1000;
     private static final int DEFAULT_MAX_DISTANCE = 20;
 
@@ -23,6 +23,8 @@ public class VisualMatchWindow implements ActionListener{
     private JButton newNodesB;
     private JButton onlineMatchB;
     private JButton offlineMatchB;
+    private JButton permB;
+    private JButton mfMatchB;
     private JButton clearB;
     private JButton quitB;
 
@@ -75,57 +77,75 @@ public class VisualMatchWindow implements ActionListener{
 	newNodesB = new JButton("New Nodes");
 	onlineMatchB = new JButton("Online Greedy Match");
 	offlineMatchB = new JButton("Offline Greedy Match");
+	mfMatchB = new JButton("Optimal Offline Match");
+	permB = new JButton("Permutation");
 	clearB = new JButton("Clear");
 	quitB = new JButton("Quit");
 
 	onlineMatchB.setEnabled(false);
 	offlineMatchB.setEnabled(false);
+	mfMatchB.setEnabled(false);
+	permB.setEnabled(false);
 	clearB.setEnabled(false);
 
 	newNodesB.addActionListener(this);
 	onlineMatchB.addActionListener(this);
 	offlineMatchB.addActionListener(this);
+	mfMatchB.addActionListener(this);
+	permB.addActionListener(this);
 	clearB.addActionListener(this);
 	quitB.addActionListener(this);
 
 	buttonPanel.add(newNodesB);
 	buttonPanel.add(onlineMatchB);
-	buttonPanel.add(offlineMatchB);
+	//buttonPanel.add(offlineMatchB);
+	buttonPanel.add(mfMatchB);
+	buttonPanel.add(permB);
 	buttonPanel.add(clearB);
 	buttonPanel.add(quitB);
     }
 
     public void actionPerformed(ActionEvent e) {
-	if(e.getSource() == newNodesB) {
+	if(e.getSource().equals(newNodesB)) {
 	    algs.setNumberNodes(configPanel.getNumberNodes());
 	    algs.newRandomNodes();
-	    vmPanel.setNewNodes(algs.getReqNodes(), algs.getServNodes());
+	    vmPanel.setNewNodes(algs.getRNodes(), algs.getSNodes());
 	    vmPanel.repaint();
 	    onlineMatchB.setEnabled(true);
 	    offlineMatchB.setEnabled(true);
+	    mfMatchB.setEnabled(true);
+	    permB.setEnabled(true);
 	    clearB.setEnabled(true);
 	}
-	if(e.getSource() == onlineMatchB) {
+	if(e.getSource().equals(onlineMatchB)) {
 	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
 	    vmPanel.enableDrawDistance(configPanel.drawDistanceEnabled());
 	    if(!vmPanel.onlineMatchDrawn) {
 		vmPanel.drawOnlineGreedyMatch(algs.greedyOnlineMatch());
 	    }
 	}
-	if(e.getSource() == offlineMatchB) {
+	if(e.getSource().equals(offlineMatchB)) {
 	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
 	    vmPanel.enableDrawDistance(configPanel.drawDistanceEnabled());
 	    if(!vmPanel.offlineMatchDrawn) {
 		vmPanel.drawOfflineGreedyMatch(algs.greedyOfflineMatch());
 	    }
 	}
-	if(e.getSource() == clearB) {
+	if(e.getSource().equals(mfMatchB)) {
+	    algs.runMaxFlowBP();
+	} 
+	if(e.getSource().equals(permB)) {
+	    algs.runPermutationMatch();
+	}
+	if(e.getSource().equals(clearB)) {
 	    vmPanel.clearAll();
 	    onlineMatchB.setEnabled(false);
 	    offlineMatchB.setEnabled(false);
+	    mfMatchB.setEnabled(false);
+	    permB.setEnabled(false);
 	    clearB.setEnabled(false);
 	}
-	if(e.getSource() == quitB) {
+	if(e.getSource().equals(quitB)) {
 	    System.exit(0);
 	}
     }

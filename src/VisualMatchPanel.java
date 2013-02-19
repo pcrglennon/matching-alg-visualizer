@@ -11,8 +11,8 @@ public class VisualMatchPanel extends JPanel {
     private int maxDistance;
     private boolean drawDistance = true;
 
-    private ArrayList<int[]> reqNodes;
-    private ArrayList<int[]> servNodes;
+    private ArrayList<Node> rNodes;
+    private ArrayList<Node> sNodes;
 
     private ArrayList<MatchInfo> onlineMatchesToDraw;
     private ArrayList<MatchInfo> offlineMatchesToDraw;
@@ -35,8 +35,8 @@ public class VisualMatchPanel extends JPanel {
 	super();
 	this.animDelay = animDelay;
 	this.maxDistance = maxDistance;
-	reqNodes = new ArrayList<int[]>();
-	servNodes = new ArrayList<int[]>();
+	rNodes = new ArrayList<Node>();
+	sNodes = new ArrayList<Node>();
 	onlineMatchesToDraw = new ArrayList<MatchInfo>();
 	offlineMatchesToDraw = new ArrayList<MatchInfo>();
 
@@ -49,10 +49,10 @@ public class VisualMatchPanel extends JPanel {
     /**
      * Update the request and server nodes w/ the new lists
      */
-    public void setNewNodes(ArrayList<int[]> reqNodes, ArrayList<int[]> servNodes) {
+    public void setNewNodes(ArrayList<Node> rNodes, ArrayList<Node> sNodes) {
 	clearAll();
-	this.reqNodes = reqNodes;
-	this.servNodes = servNodes;
+	this.rNodes = rNodes;
+	this.sNodes = sNodes;
     }
 
     public void setAnimDelay(int animDelay) {
@@ -109,8 +109,8 @@ public class VisualMatchPanel extends JPanel {
      * Allow matches to be drawn again
      */
     public void clearAll() {
-	reqNodes.clear();
-	servNodes.clear();
+	rNodes.clear();
+	sNodes.clear();
 	onlineMatchesToDraw.clear();
 	offlineMatchesToDraw.clear();
 
@@ -131,33 +131,33 @@ public class VisualMatchPanel extends JPanel {
 	for(int i = 0; i <= maxDistance; i++) {
 	    g.drawLine(i*20, 0, i*20, 400);
 	}
-	for(int[] servXY: servNodes) {
+	for(Node servXY: sNodes) {
 	    g.setColor(Color.DARK_GRAY);
-	    g.fillRect(servXY[0] * 20, servXY[1] * 20, 20, 20);
+	    g.fillRect(servXY.xPos * 20, servXY.yPos * 20, 20, 20);
 	    g.setColor(Color.WHITE);
-	    g.drawString("" + (servNodes.indexOf(servXY) + 1), (servXY[0]*20) + 3, (servXY[1]*20) + 17);
+	    g.drawString("" + (sNodes.indexOf(servXY) + 1), (servXY.xPos*20) + 3, (servXY.yPos*20) + 17);
 	}
-	for(int[] reqXY: reqNodes) {
+	for(Node reqXY: rNodes) {
 	    g.setColor(Color.RED);
-	    g.fillRect(reqXY[0]*20, reqXY[1]*20, 20, 20);
+	    g.fillRect(reqXY.xPos*20, reqXY.yPos*20, 20, 20);
 	    g.setColor(Color.WHITE);
-	    g.drawString("" + (reqNodes.indexOf(reqXY) + 1), (reqXY[0]*20) + 3, (reqXY[1]*20) + 17);
+	    g.drawString("" + (rNodes.indexOf(reqXY) + 1), (reqXY.xPos*20) + 3, (reqXY.yPos*20) + 17);
 	}
 	g.setColor(Color.BLACK);
 	//TODO - Wider Lines
 	for(MatchInfo match: onlineMatchesToDraw) {
-	    g.drawLine(match.rNode[0]*20, match.rNode[1]*20, match.sNode[0]*20, match.sNode[1]*20);
+	    g.drawLine(match.rNode.xPos*20, match.rNode.yPos*20, match.sNode.xPos*20, match.sNode.yPos*20);
 	    //If drawDistance is enabled, draw the distance between the nodes
 	    //at the midpoint of the edge joining them
 	    if(drawDistance) {
-		g.drawString("" + match.distance, (((match.rNode[0]*20) + (match.sNode[0]*20)) / 2), (((match.rNode[1]*20) + (match.sNode[1]*20)) / 2));
+		g.drawString("" + match.distance, (((match.rNode.xPos*20) + (match.sNode.xPos*20)) / 2), (((match.rNode.yPos*20) + (match.sNode.yPos*20)) / 2));
 	    }
 	}
 	g.setColor(Color.BLUE);
 	for(MatchInfo match: offlineMatchesToDraw) {
-	    g.drawLine(match.rNode[0]*20, match.rNode[1]*20, match.sNode[0]*20, match.sNode[1]*20);
+	    g.drawLine(match.rNode.xPos*20, match.rNode.yPos*20, match.sNode.xPos*20, match.sNode.yPos*20);
 	    if(drawDistance) {
-		g.drawString("" + match.distance, (((match.rNode[0]*20) + (match.sNode[0]*20)) / 2), (((match.rNode[1]*20) + (match.sNode[1]*20)) / 2));
+		g.drawString("" + match.distance, (((match.rNode.xPos*20) + (match.sNode.xPos*20)) / 2), (((match.rNode.yPos*20) + (match.sNode.yPos*20)) / 2));
 	    }
 	}
     }

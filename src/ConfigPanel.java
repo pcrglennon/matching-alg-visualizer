@@ -22,7 +22,7 @@ public class ConfigPanel extends JPanel {
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	
 	numberNodesField = new NumericTextField(1);
-	numberNodesField.setText("6");
+	numberNodesField.setText("3");
 	
 	animDelayField = new NumericTextField(4);
 	animDelayField.setText("1000");

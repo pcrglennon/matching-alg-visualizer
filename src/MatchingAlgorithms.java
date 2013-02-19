@@ -8,59 +8,121 @@ public class MatchingAlgorithms {
     private int numberNodes;
     private int maxDistance;
 
-    private ArrayList<int[]> reqNodes;
-    private ArrayList<int[]> servNodes;
+    private ArrayList<Node> sNodes;
+    private ArrayList<Node> rNodes;
+
+    private MaxFlowBP mf;
+
+    private PermutationMatch pm;
 
     public MatchingAlgorithms(int numberNodes, int maxDistance) {
 	this.numberNodes = numberNodes;
 	this.maxDistance = maxDistance;
-	reqNodes = new ArrayList<int[]>(numberNodes);
-	servNodes = new ArrayList<int[]>(numberNodes);
+	sNodes = new ArrayList<Node>(numberNodes);
+	rNodes = new ArrayList<Node>(numberNodes);
     }
 
     public void newRandomNodes() {
-	reqNodes.clear();
-	servNodes.clear();
+	sNodes.clear();
+	rNodes.clear();
 	Random rand = new Random();
 	for(int i = 0; i < numberNodes; i++) {
-	    int[] randReqNode = {rand.nextInt(DISTANCE_RANGE), rand.nextInt(DISTANCE_RANGE)};
-	    reqNodes.add(randReqNode);
-	    int[] randServNode = {rand.nextInt(DISTANCE_RANGE), rand.nextInt(DISTANCE_RANGE)};
-	    servNodes.add(randServNode);
+	    sNodes.add(new Node("x" + (i+1), rand.nextInt(DISTANCE_RANGE), rand.nextInt(DISTANCE_RANGE)));
+	    rNodes.add(new Node("y" + (i+1), rand.nextInt(DISTANCE_RANGE), rand.nextInt(DISTANCE_RANGE)));
 	}
     }
 
-    public ArrayList<int[]> getReqNodes() {
-	return new ArrayList<int[]>(reqNodes);
+    public ArrayList<Node> getSNodes() {
+	return new ArrayList<Node>(sNodes);
     }
     
-    public ArrayList<int[]> getServNodes() {
-	return new ArrayList<int[]>(servNodes);
+    public ArrayList<Node> getRNodes() {
+	return new ArrayList<Node>(rNodes);
     }
 
     public void setNumberNodes(int numberNodes) {
 	this.numberNodes = numberNodes;
     }
 
+    /**  -------------------------MAX FLOW-------------------------  */
+    
+    private Graph makeGraph(ArrayList<Node> sNodes, ArrayList<Node> rNodes) {
+	Graph g = new Graph();
+	int index = 1;
+	for(Node s: sNodes) {
+	    g.xNodes.put(index, s);
+	    g.addEdgeFromSource(index);
+	    index++;
+	}
+	index = 1;
+	for(Node r: rNodes) {
+	    g.yNodes.put(index, r);
+	    g.addEdgeToSink(index);
+	    index++;
+	}
+	//Add all the edges
+	index = 1;
+	int rIndex = 1;
+	for(Node s: sNodes) {
+	    //Reset server node index
+	    rIndex = 1;
+	    for(Node r: rNodes) {
+		g.addEdge(index, rIndex, xyDistance(s.xPos, r.xPos, s.yPos, r.yPos));
+		rIndex++;
+	    }
+	    index++;
+	}
+	return g;
+    }
+
+    public ArrayList<Graph.Edge> runMaxFlowBP() {
+	mf = new MaxFlowBP(makeGraph(sNodes, rNodes));
+	ArrayList<Graph.Edge> mfMatching = mf.runAlgorithm();
+	return mfMatching;
+    }
+
+    public ArrayList<Graph.Edge> runPermutationMatch() {
+	pm = new PermutationMatch(sNodes, rNodes);
+	ArrayList<Graph.Edge> pmMatching = pm.runAlgorithm();
+	return pmMatching;
+    }
+
      /**  -------------------------GREEDY ONLINE-------------------------  */
 
     public MatchInfo[] greedyOnlineMatch() {
 	MatchInfo[] matches = new MatchInfo[numberNodes];
-	ArrayList<int[]> servNodesCopy = getServNodes();
 	int maxDistance = xyDistance(0, DISTANCE_RANGE, 0, DISTANCE_RANGE);  //Max possible distance
+	ArrayList<Node> sNodesCopy = getSNodes();
+	int index = 0;
+	for(Node r: rNodes) {
+	    int minDistance = maxDistance;
+	    int selectedSNodeIndex = 0;
+	    for(int i = 0; i < sNodesCopy.size(); i++) {
+		int dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
+		if(dist < minDistance) {
+		    minDistance = dist;
+		    selectedSNodeIndex = i;
+		}
+	    }
+	    matches[index] = new MatchInfo(r, sNodesCopy.get(selectedSNodeIndex), minDistance);
+	    sNodesCopy.remove(selectedSNodeIndex);
+	    index++;
+	}
+	/*
 	for(int i = 0; i < numberNodes; i++) {
 	    int minDistance = maxDistance;
 	    int selectedNodeIndex = 0;
-	    for(int j = 0; j < servNodesCopy.size(); j++) {
-		int dist = xyDistance(reqNodes.get(i)[0], servNodesCopy.get(j)[0], reqNodes.get(i)[1], servNodesCopy.get(j)[1]);
+	    for(int j = 0; j < sNodes; j++) {
+		int dist = xyDistance(rNodes.get(i).xPos, sNodesCopy.get(j)[0], rNodes.get(i)[1], sNodesCopy.get(j)[1]);
 		if(dist < minDistance) {
 		    minDistance = dist;
 		    selectedNodeIndex = j;
 		}
 	    }
-	    matches[i] = new MatchInfo(reqNodes.get(i), servNodesCopy.get(selectedNodeIndex), minDistance);
-	    servNodesCopy.remove(selectedNodeIndex);
+	    matches[i] = new MatchInfo(rNodes.get(i), sNodesCopy.get(selectedNodeIndex), minDistance);
+	    sNodesCopy.remove(selectedNodeIndex);
 	}
+	*/
 	return matches;
     }
 
@@ -71,7 +133,7 @@ public class MatchingAlgorithms {
 	ArrayList<MatchInfo> allMatches = constructFullMatchingList();
 	for(int i = 0; i < numberNodes; i++) {
 	    MatchInfo match = findMinMatch(allMatches);
-	    allMatches = removeMatchedNodes(allMatches, match.rNode, match.sNode);
+	    allMatches = removeMatchedNodes(allMatches, match.sNode, match.rNode);
 	    finalMatches[i] = match;
 	}
 	return finalMatches;
@@ -91,21 +153,21 @@ public class MatchingAlgorithms {
 
     private ArrayList<MatchInfo> constructFullMatchingList() {
 	ArrayList<MatchInfo> allMatches = new ArrayList<MatchInfo>();
-	for(int i = 0; i < reqNodes.size(); i++) {
-	    int[] rNode = reqNodes.get(i);
-	    for(int j = 0; j < servNodes.size(); j++) {
-		int[] sNode = servNodes.get(j);
-		double dist = xyDistance(rNode[0], sNode[0], rNode[1], sNode[1]);
-		allMatches.add(new MatchInfo(rNode, sNode, dist));
+	for(int i = 0; i < sNodes.size(); i++) {
+	    Node sNode = sNodes.get(i);
+	    for(int j = 0; j < rNodes.size(); j++) {
+		Node rNode = rNodes.get(j);
+		double dist = xyDistance(sNode.xPos, rNode.xPos, sNode.yPos, rNode.yPos);
+		allMatches.add(new MatchInfo(sNode, rNode, dist));
 	    }
 	}
 	return allMatches;
     }
 
-    public ArrayList<MatchInfo> removeMatchedNodes(ArrayList<MatchInfo> allMatches, int[] rNode, int[] sNode) {
+    public ArrayList<MatchInfo> removeMatchedNodes(ArrayList<MatchInfo> allMatches, Node sNode, Node rNode) {
 	ArrayList<MatchInfo> matchesToRemove = new ArrayList<MatchInfo>();
 	for(MatchInfo match: allMatches) {
-	    if (match.rNode.equals(rNode) || match.sNode.equals(sNode)) {
+	    if (match.sNode.equals(sNode) || match.rNode.equals(rNode)) {
 		matchesToRemove.add(match);
 	    }
 	}
@@ -118,7 +180,6 @@ public class MatchingAlgorithms {
     /**
      * Returns the distance between two points w/ (x,y) coordinates
      */
-
     private int xyDistance(int x1, int x2, int y1, int y2) {
 	return (int)Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
