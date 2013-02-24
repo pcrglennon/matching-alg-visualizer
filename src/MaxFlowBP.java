@@ -40,45 +40,35 @@ public class MaxFlowBP {
 	return matching;
     }
 
+    /*
+     * Similar to runAlgorithm(), but terminates when all REQUEST nodes are matched
+     */
     public ArrayList<Graph.Edge> runIncompleteSet() {
+	matching.clear();
+	resetGraph();
 	setInitialNodePrices();
 	int counter = 1;
 	while(!allRequestNodesMatched()) {
 	    System.out.println("\nITERATION >> " + counter);
 	    HashMap<Node, PathInfo> pathsFromSource = new Dijkstra(g).runAlgorithm();
 	    PathInfo minPathToSink = getMinPathToSink(pathsFromSource);
-	    System.out.println("\nPATH\n" + minPathToSink.path);
+	    System.out.println("PATH\n" + minPathToSink.path);
 	    augmentPath(minPathToSink);
 	    //Update Prices
 	    for(Node y: g.yNodes.values()) {
 		if(!y.id.equals("sink")) {
 		    y.setPrice(y.getPrice() + pathsFromSource.get(y).distance);
-		    //System.out.println("new Y price >> " + y.getPrice());
 		}
 	    }
 	    for(Node x: g.xNodes.values()) {
 		if(!x.id.equals("src")) {
 		    x.setPrice(x.getPrice() + pathsFromSource.get(x).distance);
-		    //System.out.println("new x Price >> " + x.getPrice());
 		}
 	    }
 	    counter++;
-	    //for(Graph.Edge e: matching)
-		//System.out.println(e + " A. Dist > " + e.getAdjustedDistance());
 	}
 	return matching;
     }
-
-    /**
-     * Add a new request node to the graph - used by Permutation Match
-     */
-    public void addRequestNode(Node n, int index) {
-	g.yNodes.put(index, n);
-	for(Node s: g.xNodes.values()) {
-	    
-	}
-    }
-
 
     private PathInfo getMinPathToSink(HashMap<Node, PathInfo> pathsFromSource) {
 	Node minDistYNode = null;
@@ -113,6 +103,35 @@ public class MaxFlowBP {
 	}
     }
 
+    /**
+     * Reset any inverted edges
+     */
+    private void resetGraph() {
+	for(Graph.Edge e: g.edges) {
+	    if(!e.isForwardsEdge()) {
+		e.invert();
+	    }
+	}
+    }
+
+    /**
+     * Add a new request node to the graph - used by Permutation Match
+     *
+     * r - Request Node to add
+     * index - Index of new Request Node
+     */
+    public void addRequestNode(Node r, int index) {
+	g.yNodes.put(index, r);
+	g.addEdgeToSink(index);
+	int sIndex = 1;
+	for(Node s: g.xNodes.values()) {
+	    if(!s.id.equals("src")) {
+		g.addEdge(sIndex, index, xyDistance(s.xPos, r.xPos, s.yPos, r.yPos));
+		sIndex++;
+	    }
+	}
+    }
+
     private boolean isPerfectMatching() {
 	for(Node n: g.xNodes.values()) {
 	    if(!n.id.equals("src") && !n.isMatched()) {
@@ -139,6 +158,15 @@ public class MaxFlowBP {
 	return true;
     }
 
+    /**
+     * Unmatch all request nodes for a fresh run
+     */
+    public void unmatchRequestNodes() {
+	for(Node n: g.yNodes.values()) {
+	    n.setMatched(false);
+	}
+    }
+
     private void setInitialNodePrices() {
 	//All Nodes created w/ default price of 0, so xNodes is already set
 	for(Node n: g.yNodes.values()) {
@@ -157,6 +185,13 @@ public class MaxFlowBP {
 	    }
 	}
 	return minDist;
+    }
+
+    /**
+     * Returns the distance between two points w/ (x,y) coordinates
+     */
+    private int xyDistance(int x1, int x2, int y1, int y2) {
+	return (int)Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
     
     /**
