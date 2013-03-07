@@ -95,7 +95,7 @@ public class MatchingAlgorithms {
 	ArrayList<Node> sNodesCopy = getSNodes();
 	int index = 0;
 	for(Node r: rNodes) {
-	    double minDistance = maxDistance;
+	    int minDistance = maxDistance;
 	    int selectedSNodeIndex = 0;
 	    for(int i = 0; i < sNodesCopy.size(); i++) {
 		double dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
@@ -108,6 +108,21 @@ public class MatchingAlgorithms {
 	    sNodesCopy.remove(selectedSNodeIndex);
 	    index++;
 	}
+	/*
+	for(int i = 0; i < numberNodes; i++) {
+	    int minDistance = maxDistance;
+	    int selectedNodeIndex = 0;
+	    for(int j = 0; j < sNodes; j++) {
+		int dist = xyDistance(rNodes.get(i).xPos, sNodesCopy.get(j)[0], rNodes.get(i)[1], sNodesCopy.get(j)[1]);
+		if(dist < minDistance) {
+		    minDistance = dist;
+		    selectedNodeIndex = j;
+		}
+	    }
+	    matches[i] = new MatchInfo(rNodes.get(i), sNodesCopy.get(selectedNodeIndex), minDistance);
+	    sNodesCopy.remove(selectedNodeIndex);
+	}
+	*/
 	return matches;
     }
 

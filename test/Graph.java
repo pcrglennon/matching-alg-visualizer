@@ -37,11 +37,11 @@ public class Graph {
     }
 
     public void addEdgeFromSource(int endID) {
-	edges.add(new Edge(-1, endID, 0.0, true, false));
+	edges.add(new Edge(-1, endID, 0, true, false));
     }
 
     public void addEdgeToSink(int sourceID) {
-	edges.add(new Edge(sourceID, -1, 0.0, false, true));
+	edges.add(new Edge(sourceID, -1, 0, false, true));
     }
 
     class Edge {
