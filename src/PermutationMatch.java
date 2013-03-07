@@ -28,11 +28,11 @@ public class PermutationMatch {
 	    mf.unmatchRequestNodes();
 	    mf.addRequestNode(rNodes.get(rIndex), rIndex+1);
 	    mfMatching = mf.runIncompleteSet();
-	    System.out.println("mfMatching:\n" + mfMatching);
+	    //System.out.println("mfMatching:\n" + mfMatching);
 	    Node sNode = findNewSNode(mfMatching);
 	    matchedSNodes.add(sNode);
 	    MatchInfo match = new MatchInfo(sNode, rNodes.get(rIndex));
-	    System.out.println("matched > " + match);
+	    //System.out.println("matched > " + match);
 	    matching.add(match);
 	    rIndex++;
 	}

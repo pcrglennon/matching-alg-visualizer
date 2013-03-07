@@ -111,6 +111,60 @@ public class MatchingAlgorithms {
 	return matches;
     }
 
+    /**  ----------------------RANDOM GREEDY ONLINE----------------------  */
+
+    /**
+     * Determines the 2 closest matches for each Request Node, randomly selects one
+     */
+    public MatchInfo[] randomGreedyOnlineMatch() {
+	Random rand = new Random();
+	MatchInfo[] matches = new MatchInfo[numberNodes];
+	double maxDistance = xyDistance(0, DISTANCE_RANGE, 0, DISTANCE_RANGE);  //Max possible distance
+	ArrayList<Node> sNodesCopy = getSNodes();
+	int index = 0;
+	for(Node r: rNodes) {
+	    //If only one node left to match, match to last s Node
+	    if(sNodesCopy.size() == 1) {
+		Node lastSNode = sNodesCopy.get(0);
+		double lastMatchDist = xyDistance(r.xPos, lastSNode.xPos, r.yPos, lastSNode.yPos);
+		matches[index] = new MatchInfo(r, lastSNode, lastMatchDist);
+		break;
+	    }
+	    double minDistanceOne = maxDistance;
+	    double minDistanceTwo = maxDistance;
+	    int selectedIndexOne = 0;
+	    int selectedIndexTwo = 0;
+	    //Find the smallest distance
+	    for(int i = 0; i < sNodesCopy.size(); i++) {
+		double dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
+		if(dist < minDistanceOne) {
+		    minDistanceOne = dist;
+		    selectedIndexOne = i;
+		}
+	    }
+	    //Re-loop to find the second smallest distance.  Far from the best way to do this!
+	    for(int i = 0; i < sNodesCopy.size(); i++) {
+		double dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
+		if(dist < minDistanceTwo && i != selectedIndexOne) {
+		    minDistanceTwo = dist;
+		    selectedIndexTwo = i;
+		}
+	    }
+	    //Randomly select one of the two
+	    boolean choice = rand.nextBoolean();
+	    if(choice) {
+		matches[index] = new MatchInfo(r, sNodesCopy.get(selectedIndexOne), minDistanceOne);
+		sNodesCopy.remove(selectedIndexOne);
+
+	    } else {
+		matches[index] = new MatchInfo(r, sNodesCopy.get(selectedIndexTwo), minDistanceTwo);
+		sNodesCopy.remove(selectedIndexTwo);
+	    }
+	    index++;
+	}
+	return matches;
+    }
+
     /**  -------------------------GREEDY OFFLINE-------------------------  */
 
     public MatchInfo[] greedyOfflineMatch() {

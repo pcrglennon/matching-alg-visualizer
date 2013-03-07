@@ -22,6 +22,7 @@ public class VisualMatchWindow implements ActionListener{
     private JPanel buttonPanel;
     private JButton newNodesB;
     private JButton onlineMatchB;
+    private JButton randGreedyB;
     private JButton offlineMatchB;
     private JButton permB;
     private JButton mfMatchB;
@@ -76,6 +77,7 @@ public class VisualMatchWindow implements ActionListener{
 	
 	newNodesB = new JButton("New Nodes");
 	onlineMatchB = new JButton("Online Greedy Match");
+	randGreedyB = new JButton("Rand. Greedy Match");
 	offlineMatchB = new JButton("Offline Greedy Match");
 	mfMatchB = new JButton("Optimal Offline Match");
 	permB = new JButton("Permutation");
@@ -83,6 +85,7 @@ public class VisualMatchWindow implements ActionListener{
 	quitB = new JButton("Quit");
 
 	onlineMatchB.setEnabled(false);
+	randGreedyB.setEnabled(false);
 	offlineMatchB.setEnabled(false);
 	mfMatchB.setEnabled(false);
 	permB.setEnabled(false);
@@ -90,6 +93,7 @@ public class VisualMatchWindow implements ActionListener{
 
 	newNodesB.addActionListener(this);
 	onlineMatchB.addActionListener(this);
+	randGreedyB.addActionListener(this);
 	offlineMatchB.addActionListener(this);
 	mfMatchB.addActionListener(this);
 	permB.addActionListener(this);
@@ -98,8 +102,9 @@ public class VisualMatchWindow implements ActionListener{
 
 	buttonPanel.add(newNodesB);
 	buttonPanel.add(onlineMatchB);
+	buttonPanel.add(randGreedyB);
 	//buttonPanel.add(offlineMatchB);
-	buttonPanel.add(mfMatchB);
+	//buttonPanel.add(mfMatchB);
 	buttonPanel.add(permB);
 	buttonPanel.add(clearB);
 	buttonPanel.add(quitB);
@@ -112,6 +117,7 @@ public class VisualMatchWindow implements ActionListener{
 	    vmPanel.setNewNodes(algs.getRNodes(), algs.getSNodes());
 	    vmPanel.repaint();
 	    onlineMatchB.setEnabled(true);
+	    randGreedyB.setEnabled(true);
 	    offlineMatchB.setEnabled(true);
 	    mfMatchB.setEnabled(true);
 	    permB.setEnabled(true);
@@ -123,6 +129,9 @@ public class VisualMatchWindow implements ActionListener{
 	    if(!vmPanel.onlineMatchDrawn) {
 		vmPanel.drawOnlineGreedyMatch(algs.greedyOnlineMatch());
 	    }
+	}
+	if(e.getSource().equals(randGreedyB)) {
+	    algs.randomGreedyOnlineMatch();
 	}
 	if(e.getSource().equals(offlineMatchB)) {
 	    vmPanel.setAnimDelay(configPanel.getAnimDelay());
@@ -140,6 +149,7 @@ public class VisualMatchWindow implements ActionListener{
 	if(e.getSource().equals(clearB)) {
 	    vmPanel.clearAll();
 	    onlineMatchB.setEnabled(false);
+	    randGreedyB.setEnabled(false);
 	    offlineMatchB.setEnabled(false);
 	    mfMatchB.setEnabled(false);
 	    permB.setEnabled(false);
