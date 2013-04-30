@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Test60 {
+public class BadInstanceTest {
 
     private int numberNodes;
     private int distanceRange;
@@ -18,7 +18,7 @@ public class Test60 {
 
     private PermutationMatch pm;
 
-    public Test60(int numberNodes, int distanceRange) {
+    public BadInstanceTest() {
 	this.numberNodes = numberNodes;
 	this.distanceRange = distanceRange;
 	sNodes = new ArrayList<Node>(numberNodes);
@@ -104,15 +104,15 @@ public class Test60 {
      /**  -------------------------GREEDY ONLINE-------------------------  */
 
     public MatchInfo[] greedyOnlineMatch() {
-	MatchInfo[] matches = new MatchInfo[numberNodes];
-	double maxDistance = Double.MAX_VALUE;
+	MatchInfo[] matches = new MatchInfo[rNodes.size()];
+	int maxDistance = Integer.MAX_VALUE;
 	ArrayList<Node> sNodesCopy = getSNodes();
 	int index = 0;
 	for(Node r: rNodes) {
-	    double minDistance = maxDistance;
+	    int minDistance = maxDistance;
 	    int selectedSNodeIndex = 0;
 	    for(int i = 0; i < sNodesCopy.size(); i++) {
-		double dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
+		int dist = xyDistance(r.xPos, sNodesCopy.get(i).xPos, r.yPos, sNodesCopy.get(i).yPos);
 		if(dist < minDistance) {
 		    minDistance = dist;
 		    selectedSNodeIndex = i;
@@ -191,101 +191,36 @@ public class Test60 {
 	return allMatches;
     }
 
+    private void makeBadInstanceSet() {
+	sNodes.clear();
+	rNodes.clear();
+	sNodes.add(new Node("x1", 0, 0));
+	sNodes.add(new Node("x2", 3, 0));
+	sNodes.add(new Node("x3", 7, 0));
+	//sNodes.add(new Node("x4", 15, 0));
+	rNodes.add(new Node("y1", 2, 0));
+	rNodes.add(new Node("y2", 4, 0));
+	rNodes.add(new Node("y3", 8, 0));
+	//rNodes.add(new Node("y4", 16,0));
+    }
+
     /**
      * Returns the distance between two points w/ (x,y) coordinates
      */
 
-    private double xyDistance(int x1, int x2, int y1, int y2) {
-	return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    private int xyDistance(int x1, int x2, int y1, int y2) {
+	return (int)Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
     public static void main(String[] args) {
-		Test60 mat = new Test60(10, 30);
-		DecimalFormat fourDecimals = new DecimalFormat("#.####");
-		//double sumAvgPOA = 0;   
-		int numRuns = 20;
-	
-		for(int i = 60; i <= 60; i += 10) {
-			StringBuilder sb = new StringBuilder();
-			//double worstPOA = 0.0;
-			//double sumAvgMFCost = 0.0;
-			double sumAvgPMCost = 0.0;
-			double sumWorstPMCost = 0.0;
-			double sumAvgGOCost = 0.0;
-			double sumWorstGOCost = 0.0;
-			mat.setNumberNodes(i);
-			int range = (int)Math.sqrt(90*i);
-			mat.setDistanceRange(range);
-			sb.append("\n\n---------NEW NODE SIZE(" + i + ")----------\n\n");
-			System.out.println("\n\n---------NEW NODE SIZE(" + i + ")----------");
-			for(int j = 1; j <= numRuns; j++) {
-				mat.newRandomNodes();
-				sb.append("\n\n------NODE SIZE("+i+") ITERATION " + j + "------");
-				System.out.println("\n\n------NODE SIZE("+i+") ITERATION " + j + "------\n\n");
-				/**
-				ArrayList<Graph.Edge> mfMatch = mat.runMaxFlowBP();
-				double mfCost = 0.0;
-				for(Graph.Edge e: mfMatch) {
-					mfCost += e.getDistance();
-				}
-				double avgMFCost  = mfCost/i;
-				sumAvgMFCost += avgMFCost;
-				sb.append("\n\nMAXFLOW AVG COST >> " + avgMFCost);
-				*/
-				ArrayList<MatchInfo> pmMatch = mat.runPermutationMatch();
-				double pmCost = 0.0;
-				double worstPMCost = 0.0;
-				for(MatchInfo mi: pmMatch) {
-				    System.out.println(mi);
-				    if(mi.distance > worstPMCost) 
-					worstPMCost = mi.distance;
-				    pmCost += mi.distance;
-				}
-				double avgPMCost  = pmCost/i;
-				sumAvgPMCost += avgPMCost;
-				sumWorstPMCost += worstPMCost;
-				sb.append("\n\nPERMUTATION AVG COST >> " + fourDecimals.format(avgPMCost));
-				MatchInfo[] goMatch = mat.greedyOnlineMatch();
-				double goCost = 0.0;
-				double worstGOCost = 0.0;
-				for(MatchInfo m: goMatch) {
-				    if(m.distance > worstGOCost)
-					worstGOCost = m.distance;
-				    goCost += m.distance;
-				}
-				double avgGOCost = goCost/i;
-				sumAvgGOCost += avgGOCost;
-				sumWorstGOCost += worstGOCost;
-				sb.append("   ||   GREEDY AVG COST >> " + fourDecimals.format(avgGOCost));
-				sb.append("\nPERMUATION WORST COST >> " + fourDecimals.format(worstPMCost));
-				sb.append("   ||   GREEDY WORST COST >> " + fourDecimals.format(worstGOCost));
-				//double poa = Double.valueOf(fourDecimals.format(((goCost/i) / (mfCost/i))));
-				//double poa = Double.valueOf(fourDecimals.format(((goCost/i) / (pmCost/i))));
-				//sb.append("   ||   POA >> " + poa);
-				//if(poa > worstPOA) {
-				//	worstPOA = poa;
-				//}
-			}	
-			sb.append("\n\n\n-------------------------FOR NODE SIZE(" + i + ")");
-			//sb.append("\n-------------------------Avg. MF Cost >> " + Double.valueOf(fourDecimals.format(sumAvgMFCost/numRuns)));
-			sb.append("\n-------------------------Avg. PM Cost >> " + Double.valueOf(fourDecimals.format(sumAvgPMCost/numRuns)));
-			sb.append("\n-------------------------Avg. GO Cost >> " + Double.valueOf(fourDecimals.format(sumAvgGOCost/numRuns)));
-			sb.append("\n-------------------------Avg. Worst PM Cost >> " + Double.valueOf(fourDecimals.format(sumWorstPMCost/numRuns)));
-			sb.append("\n-------------------------Avg. Worst GO Cost >> " + Double.valueOf(fourDecimals.format(sumWorstGOCost/numRuns)));
-			//double avgPOA = Double.valueOf(fourDecimals.format((sumAvgGOCost/(25.0*i)) / (sumAvgMFCost/(25.0*i))));
-			//double avgPOA = Double.valueOf(fourDecimals.format((sumAvgGOCost/(25.0*i)) / (sumAvgPMCost/(25.0*i))));
-			//sumAvgPOA += avgPOA;
-			//sb.append("\n-------------------------Avg. POA >> " + avgPOA);
-			//sb.append("\n-------------------------Worst POA >> " + worstPOA);
-			try {
-				FileWriter fstream = new FileWriter("RESULTS " + i + ".txt");
-				BufferedWriter out = new BufferedWriter(fstream);
-				out.write(sb.toString());
-				out.close();
-			} catch (Exception e) {
-				
-			}
-		}
+	BadInstanceTest bit = new BadInstanceTest();
+	bit.makeBadInstanceSet();
+	ArrayList<MatchInfo> pm = bit.runPermutationMatch();
+	System.out.println("\n\nPERMUTATION");
+	System.out.println(pm);
+	System.out.println("\n\nGREEDY");
+	for(MatchInfo mi: bit.greedyOnlineMatch()) {
+	    System.out.println(mi);
 	}
-
+    }
 }

@@ -1,0 +1,415 @@
+Num Runs - 2500
+
+
+
+
+========THRESHOLD 19========
+
+
+GREEDY Avg. Match Length >> 24.5102
+GREEDY Avg. Worst Match Length >> 71.9216
+GREEDY Avg. Best Match Length >> 3.609
+
+
+
+========THRESHOLD 20========
+
+
+A1 Avg. Match length for Thresh. 20 >> 24.6166
+A1 Avg. Worst Match length for Thresh. 20 >> 71.9025
+A1 Avg. Best Match length for Thresh. 20 >> 3.6079
+
+A2 Avg. Match length for Thresh. 20 >> 24.5552
+A2 Avg. Worst Match length for Thresh. 20 >> 71.8951
+A2 Avg. Best Match length for Thresh. 20 >> 3.6091
+
+
+
+========THRESHOLD 21========
+
+
+A1 Avg. Match length for Thresh. 21 >> 24.6088
+A1 Avg. Worst Match length for Thresh. 21 >> 71.8814
+A1 Avg. Best Match length for Thresh. 21 >> 3.6093
+
+A2 Avg. Match length for Thresh. 21 >> 24.5605
+A2 Avg. Worst Match length for Thresh. 21 >> 71.9936
+A2 Avg. Best Match length for Thresh. 21 >> 3.6074
+
+
+
+========THRESHOLD 22========
+
+
+A1 Avg. Match length for Thresh. 22 >> 24.6415
+A1 Avg. Worst Match length for Thresh. 22 >> 71.964
+A1 Avg. Best Match length for Thresh. 22 >> 3.6094
+
+A2 Avg. Match length for Thresh. 22 >> 24.5777
+A2 Avg. Worst Match length for Thresh. 22 >> 71.9088
+A2 Avg. Best Match length for Thresh. 22 >> 3.6093
+
+
+
+========THRESHOLD 23========
+
+
+A1 Avg. Match length for Thresh. 23 >> 24.5852
+A1 Avg. Worst Match length for Thresh. 23 >> 71.9048
+A1 Avg. Best Match length for Thresh. 23 >> 3.6107
+
+A2 Avg. Match length for Thresh. 23 >> 24.544
+A2 Avg. Worst Match length for Thresh. 23 >> 71.9209
+A2 Avg. Best Match length for Thresh. 23 >> 3.6099
+
+
+
+========THRESHOLD 24========
+
+
+A1 Avg. Match length for Thresh. 24 >> 24.6112
+A1 Avg. Worst Match length for Thresh. 24 >> 71.9269
+A1 Avg. Best Match length for Thresh. 24 >> 3.6104
+
+A2 Avg. Match length for Thresh. 24 >> 24.5854
+A2 Avg. Worst Match length for Thresh. 24 >> 71.9517
+A2 Avg. Best Match length for Thresh. 24 >> 3.6285
+
+
+
+========THRESHOLD 25========
+
+
+A1 Avg. Match length for Thresh. 25 >> 24.6403
+A1 Avg. Worst Match length for Thresh. 25 >> 71.9585
+A1 Avg. Best Match length for Thresh. 25 >> 3.6098
+
+A2 Avg. Match length for Thresh. 25 >> 24.5239
+A2 Avg. Worst Match length for Thresh. 25 >> 71.8286
+A2 Avg. Best Match length for Thresh. 25 >> 3.7275
+
+
+
+========THRESHOLD 26========
+
+
+A1 Avg. Match length for Thresh. 26 >> 24.6118
+A1 Avg. Worst Match length for Thresh. 26 >> 71.9262
+A1 Avg. Best Match length for Thresh. 26 >> 4.1372
+
+A2 Avg. Match length for Thresh. 26 >> 24.5745
+A2 Avg. Worst Match length for Thresh. 26 >> 71.8886
+A2 Avg. Best Match length for Thresh. 26 >> 4.0376
+
+
+
+========THRESHOLD 27========
+
+
+A1 Avg. Match length for Thresh. 27 >> 24.6524
+A1 Avg. Worst Match length for Thresh. 27 >> 71.7967
+A1 Avg. Best Match length for Thresh. 27 >> 4.1374
+
+A2 Avg. Match length for Thresh. 27 >> 24.5921
+A2 Avg. Worst Match length for Thresh. 27 >> 71.8247
+A2 Avg. Best Match length for Thresh. 27 >> 4.1291
+
+
+
+========THRESHOLD 28========
+
+
+A1 Avg. Match length for Thresh. 28 >> 24.6569
+A1 Avg. Worst Match length for Thresh. 28 >> 71.9357
+A1 Avg. Best Match length for Thresh. 28 >> 4.1391
+
+A2 Avg. Match length for Thresh. 28 >> 24.6035
+A2 Avg. Worst Match length for Thresh. 28 >> 71.8638
+A2 Avg. Best Match length for Thresh. 28 >> 4.1391
+
+
+
+========THRESHOLD 29========
+
+
+A1 Avg. Match length for Thresh. 29 >> 24.6814
+A1 Avg. Worst Match length for Thresh. 29 >> 71.8947
+A1 Avg. Best Match length for Thresh. 29 >> 4.1395
+
+A2 Avg. Match length for Thresh. 29 >> 24.6108
+A2 Avg. Worst Match length for Thresh. 29 >> 71.9136
+A2 Avg. Best Match length for Thresh. 29 >> 4.1361
+
+
+
+========THRESHOLD 30========
+
+
+A1 Avg. Match length for Thresh. 30 >> 24.7043
+A1 Avg. Worst Match length for Thresh. 30 >> 71.8862
+A1 Avg. Best Match length for Thresh. 30 >> 4.1397
+
+A2 Avg. Match length for Thresh. 30 >> 24.6366
+A2 Avg. Worst Match length for Thresh. 30 >> 71.8873
+A2 Avg. Best Match length for Thresh. 30 >> 4.1372
+
+
+
+========THRESHOLD 31========
+
+
+A1 Avg. Match length for Thresh. 31 >> 24.7213
+A1 Avg. Worst Match length for Thresh. 31 >> 71.9024
+A1 Avg. Best Match length for Thresh. 31 >> 4.1372
+
+A2 Avg. Match length for Thresh. 31 >> 24.6503
+A2 Avg. Worst Match length for Thresh. 31 >> 71.8366
+A2 Avg. Best Match length for Thresh. 31 >> 4.1411
+
+
+
+========THRESHOLD 32========
+
+
+A1 Avg. Match length for Thresh. 32 >> 24.7537
+A1 Avg. Worst Match length for Thresh. 32 >> 71.9129
+A1 Avg. Best Match length for Thresh. 32 >> 4.1394
+
+A2 Avg. Match length for Thresh. 32 >> 24.6776
+A2 Avg. Worst Match length for Thresh. 32 >> 71.8576
+A2 Avg. Best Match length for Thresh. 32 >> 4.1393
+
+
+
+========THRESHOLD 33========
+
+
+A1 Avg. Match length for Thresh. 33 >> 24.6968
+A1 Avg. Worst Match length for Thresh. 33 >> 71.9101
+A1 Avg. Best Match length for Thresh. 33 >> 4.1395
+
+A2 Avg. Match length for Thresh. 33 >> 24.6747
+A2 Avg. Worst Match length for Thresh. 33 >> 71.9129
+A2 Avg. Best Match length for Thresh. 33 >> 4.1403
+
+
+
+========THRESHOLD 34========
+
+
+A1 Avg. Match length for Thresh. 34 >> 24.7472
+A1 Avg. Worst Match length for Thresh. 34 >> 71.9284
+A1 Avg. Best Match length for Thresh. 34 >> 4.139
+
+A2 Avg. Match length for Thresh. 34 >> 24.7127
+A2 Avg. Worst Match length for Thresh. 34 >> 71.9371
+A2 Avg. Best Match length for Thresh. 34 >> 4.1375
+
+
+
+========THRESHOLD 35========
+
+
+A1 Avg. Match length for Thresh. 35 >> 24.7314
+A1 Avg. Worst Match length for Thresh. 35 >> 71.8543
+A1 Avg. Best Match length for Thresh. 35 >> 4.1376
+
+A2 Avg. Match length for Thresh. 35 >> 24.7423
+A2 Avg. Worst Match length for Thresh. 35 >> 71.8225
+A2 Avg. Best Match length for Thresh. 35 >> 4.1373
+
+
+
+========THRESHOLD 36========
+
+
+A1 Avg. Match length for Thresh. 36 >> 24.801
+A1 Avg. Worst Match length for Thresh. 36 >> 71.9139
+A1 Avg. Best Match length for Thresh. 36 >> 4.1375
+
+A2 Avg. Match length for Thresh. 36 >> 24.76
+A2 Avg. Worst Match length for Thresh. 36 >> 71.8727
+A2 Avg. Best Match length for Thresh. 36 >> 4.1404
+
+
+
+========THRESHOLD 37========
+
+
+A1 Avg. Match length for Thresh. 37 >> 24.8274
+A1 Avg. Worst Match length for Thresh. 37 >> 71.9842
+A1 Avg. Best Match length for Thresh. 37 >> 4.1382
+
+A2 Avg. Match length for Thresh. 37 >> 24.7701
+A2 Avg. Worst Match length for Thresh. 37 >> 71.8441
+A2 Avg. Best Match length for Thresh. 37 >> 4.1386
+
+
+
+========THRESHOLD 38========
+
+
+A1 Avg. Match length for Thresh. 38 >> 24.8382
+A1 Avg. Worst Match length for Thresh. 38 >> 71.8618
+A1 Avg. Best Match length for Thresh. 38 >> 4.1379
+
+A2 Avg. Match length for Thresh. 38 >> 24.812
+A2 Avg. Worst Match length for Thresh. 38 >> 71.9129
+A2 Avg. Best Match length for Thresh. 38 >> 4.141
+
+
+
+========THRESHOLD 39========
+
+
+A1 Avg. Match length for Thresh. 39 >> 24.8026
+A1 Avg. Worst Match length for Thresh. 39 >> 71.8778
+A1 Avg. Best Match length for Thresh. 39 >> 4.1399
+
+A2 Avg. Match length for Thresh. 39 >> 24.8114
+A2 Avg. Worst Match length for Thresh. 39 >> 71.895
+A2 Avg. Best Match length for Thresh. 39 >> 4.1383
+
+
+
+========THRESHOLD 40========
+
+
+A1 Avg. Match length for Thresh. 40 >> 24.8814
+A1 Avg. Worst Match length for Thresh. 40 >> 71.8327
+A1 Avg. Best Match length for Thresh. 40 >> 4.1385
+
+A2 Avg. Match length for Thresh. 40 >> 24.8518
+A2 Avg. Worst Match length for Thresh. 40 >> 71.9061
+A2 Avg. Best Match length for Thresh. 40 >> 4.1378
+
+
+
+========THRESHOLD 41========
+
+
+A1 Avg. Match length for Thresh. 41 >> 24.8587
+A1 Avg. Worst Match length for Thresh. 41 >> 71.8518
+A1 Avg. Best Match length for Thresh. 41 >> 4.1396
+
+A2 Avg. Match length for Thresh. 41 >> 24.8887
+A2 Avg. Worst Match length for Thresh. 41 >> 71.8633
+A2 Avg. Best Match length for Thresh. 41 >> 4.1409
+
+
+
+========THRESHOLD 42========
+
+
+A1 Avg. Match length for Thresh. 42 >> 24.8601
+A1 Avg. Worst Match length for Thresh. 42 >> 71.8507
+A1 Avg. Best Match length for Thresh. 42 >> 4.138
+
+A2 Avg. Match length for Thresh. 42 >> 24.871
+A2 Avg. Worst Match length for Thresh. 42 >> 71.8746
+A2 Avg. Best Match length for Thresh. 42 >> 4.1379
+
+
+
+========THRESHOLD 43========
+
+
+A1 Avg. Match length for Thresh. 43 >> 24.8636
+A1 Avg. Worst Match length for Thresh. 43 >> 71.8727
+A1 Avg. Best Match length for Thresh. 43 >> 4.1393
+
+A2 Avg. Match length for Thresh. 43 >> 24.8868
+A2 Avg. Worst Match length for Thresh. 43 >> 71.8804
+A2 Avg. Best Match length for Thresh. 43 >> 4.1397
+
+
+
+========THRESHOLD 44========
+
+
+A1 Avg. Match length for Thresh. 44 >> 24.888
+A1 Avg. Worst Match length for Thresh. 44 >> 71.9097
+A1 Avg. Best Match length for Thresh. 44 >> 4.1391
+
+A2 Avg. Match length for Thresh. 44 >> 24.9041
+A2 Avg. Worst Match length for Thresh. 44 >> 71.8607
+A2 Avg. Best Match length for Thresh. 44 >> 4.1396
+
+
+
+========THRESHOLD 45========
+
+
+A1 Avg. Match length for Thresh. 45 >> 24.8637
+A1 Avg. Worst Match length for Thresh. 45 >> 71.8667
+A1 Avg. Best Match length for Thresh. 45 >> 4.1393
+
+A2 Avg. Match length for Thresh. 45 >> 24.8762
+A2 Avg. Worst Match length for Thresh. 45 >> 71.8267
+A2 Avg. Best Match length for Thresh. 45 >> 4.1389
+
+
+
+========THRESHOLD 46========
+
+
+A1 Avg. Match length for Thresh. 46 >> 24.865
+A1 Avg. Worst Match length for Thresh. 46 >> 71.8721
+A1 Avg. Best Match length for Thresh. 46 >> 4.1387
+
+A2 Avg. Match length for Thresh. 46 >> 24.8992
+A2 Avg. Worst Match length for Thresh. 46 >> 71.8993
+A2 Avg. Best Match length for Thresh. 46 >> 4.1382
+
+
+
+========THRESHOLD 47========
+
+
+A1 Avg. Match length for Thresh. 47 >> 24.8643
+A1 Avg. Worst Match length for Thresh. 47 >> 71.9315
+A1 Avg. Best Match length for Thresh. 47 >> 4.1416
+
+A2 Avg. Match length for Thresh. 47 >> 24.901
+A2 Avg. Worst Match length for Thresh. 47 >> 71.8944
+A2 Avg. Best Match length for Thresh. 47 >> 4.1389
+
+
+
+========THRESHOLD 48========
+
+
+A1 Avg. Match length for Thresh. 48 >> 24.8956
+A1 Avg. Worst Match length for Thresh. 48 >> 71.852
+A1 Avg. Best Match length for Thresh. 48 >> 4.14
+
+A2 Avg. Match length for Thresh. 48 >> 24.9176
+A2 Avg. Worst Match length for Thresh. 48 >> 71.8452
+A2 Avg. Best Match length for Thresh. 48 >> 4.1397
+
+
+
+========THRESHOLD 49========
+
+
+A1 Avg. Match length for Thresh. 49 >> 24.876
+A1 Avg. Worst Match length for Thresh. 49 >> 71.8534
+A1 Avg. Best Match length for Thresh. 49 >> 4.1404
+
+A2 Avg. Match length for Thresh. 49 >> 24.9084
+A2 Avg. Worst Match length for Thresh. 49 >> 71.9
+A2 Avg. Best Match length for Thresh. 49 >> 4.1387
+
+
+
+========THRESHOLD 50========
+
+
+A1 Avg. Match length for Thresh. 50 >> 24.9542
+A1 Avg. Worst Match length for Thresh. 50 >> 71.9146
+A1 Avg. Best Match length for Thresh. 50 >> 4.1412
+
+A2 Avg. Match length for Thresh. 50 >> 24.8983
+A2 Avg. Worst Match length for Thresh. 50 >> 71.9416
+A2 Avg. Best Match length for Thresh. 50 >> 4.1398
+

@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Test60 {
+public class Test80 {
 
     private int numberNodes;
     private int distanceRange;
@@ -18,7 +18,7 @@ public class Test60 {
 
     private PermutationMatch pm;
 
-    public Test60(int numberNodes, int distanceRange) {
+    public Test80(int numberNodes, int distanceRange) {
 	this.numberNodes = numberNodes;
 	this.distanceRange = distanceRange;
 	sNodes = new ArrayList<Node>(numberNodes);
@@ -200,12 +200,12 @@ public class Test60 {
     }
 
     public static void main(String[] args) {
-		Test60 mat = new Test60(10, 30);
+		Test80 mat = new Test80(10, 30);
 		DecimalFormat fourDecimals = new DecimalFormat("#.####");
 		//double sumAvgPOA = 0;   
 		int numRuns = 20;
 	
-		for(int i = 60; i <= 60; i += 10) {
+		for(int i = 80; i <= 80; i += 10) {
 			StringBuilder sb = new StringBuilder();
 			//double worstPOA = 0.0;
 			//double sumAvgMFCost = 0.0;
@@ -236,7 +236,6 @@ public class Test60 {
 				double pmCost = 0.0;
 				double worstPMCost = 0.0;
 				for(MatchInfo mi: pmMatch) {
-				    System.out.println(mi);
 				    if(mi.distance > worstPMCost) 
 					worstPMCost = mi.distance;
 				    pmCost += mi.distance;
