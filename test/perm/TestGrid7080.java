@@ -8,9 +8,7 @@ import java.util.Random;
 
 /**
  * Runs Max-Flow, Opt Bottleneck,  both New Algs, and Greedy on The 2D Grid 
- * w/ n = 10 up to 60, by increments of 10
- *
- * Optimal Threshold for Campus 1  = 21
+ * w/ n = 70 up to 80, by increments of 10
  */
 
 public class TestGrid7080 {
@@ -23,11 +21,13 @@ public class TestGrid7080 {
 
     private OptBottleneck ob;
     private MaxFlowBP mf;
+    private PermutationMatch pm;
 
     //Store win counts for Average Cost, Worst Cost, and Best Cost (in that order)
     //i.e. mfWins[0] = number of Average Cost Wins
     private int[] obWins = {0,0,0};
     private int[] mfWins = {0,0,0};
+    private int[] pmWins = {0,0,0};
     private int[] goWins = {0,0,0};
 
     public TestGrid7080() {
@@ -110,6 +110,14 @@ public class TestGrid7080 {
 	return mfMatching;
     }
 
+    /**  -------------------------PERMUTATION-------------------------  */
+
+    public ArrayList<MatchInfo> runPermutationMatch() {
+	pm = new PermutationMatch(sNodes, rNodes);
+	ArrayList<MatchInfo> pmMatching = pm.runAlgorithm();
+	return pmMatching;
+    }
+
     /**  -------------------------GREEDY ONLINE-------------------------  */
 
     public ArrayList<MatchInfo> greedyOnlineMatch() {
@@ -144,7 +152,7 @@ public class TestGrid7080 {
 
     public void test() {
 	DecimalFormat fourDecimals = new DecimalFormat("#.####");
-	int numRuns = 80;
+	int numRuns = 60;
 	for(int i = 70; i <= 80; i+= 10) {
 	    System.out.println("\n\n\nNEW N = " + i);
 	    StringBuilder sb = new StringBuilder();
@@ -156,6 +164,8 @@ public class TestGrid7080 {
 	    double sumOBBneckCost = 0.0;
 	    double sumAvgMFCost = 0.0;
 	    double sumMFBneckCost = 0.0;
+	    double sumAvgPMCost = 0.0;
+	    double sumPMBneckCost = 0.0;
 	    double sumAvgGOCost = 0.0;
 	    double sumGOBneckCost = 0.0;
 	    resetWinCounts();
@@ -172,29 +182,38 @@ public class TestGrid7080 {
 		sumAvgMFCost += mfMatchingCosts[0];
 		sumMFBneckCost += mfMatchingCosts[1];
 		ArrayList<MatchInfo> goMatching = greedyOnlineMatch();
+		ArrayList<MatchInfo> pmMatching = runPermutationMatch();
+		double[] pmMatchingCosts = getCosts(pmMatching);
+		sumAvgPMCost += pmMatchingCosts[0];
+		sumPMBneckCost += pmMatchingCosts[1];
 		double[] goMatchingCosts = getCosts(goMatching);
 		sumAvgGOCost += goMatchingCosts[0];
 		sumGOBneckCost += goMatchingCosts[1];
 		//Determine Winners
-		determineWinners(obMatchingCosts, mfMatchingCosts, goMatchingCosts);
+		determineWinners(obMatchingCosts, mfMatchingCosts, pmMatchingCosts, goMatchingCosts);
 		sb.append("\nOPT BNECK AVG COST >> " + fourDecimals.format(obMatchingCosts[0]));
 		sb.append("   ||   OPT BNECK WORST COST >> " + fourDecimals.format(obMatchingCosts[1]));
 		sb.append("\nMAX FLOW AVG COST >> " + fourDecimals.format(mfMatchingCosts[0]));
 		sb.append("   ||   MAX FLOW WORST COST >> " + fourDecimals.format(mfMatchingCosts[1]));
+		sb.append("\n\nPERMUTATION AVG COST >> " + fourDecimals.format(pmMatchingCosts[0]));
+		sb.append("   ||   PERMUATION WORST COST >> " + fourDecimals.format(pmMatchingCosts[1]));
 		sb.append("\nGREEDY AVG COST >> " + fourDecimals.format(goMatchingCosts[0]));
 		sb.append("   ||   GREEDY WORST COST >> " + fourDecimals.format(goMatchingCosts[1]));
 	    }	
 	    sb.append("\n\n\n--------------------AVERAGE COSTS (i = " + i + "):-------------------\n\n");
 	    sb.append("\n----------------------Avg. OPT BNECK Cost >> " + Double.valueOf(fourDecimals.format(sumAvgOBCost/numRuns)));
 	    sb.append("\n----------------------Avg. MAX FLOW Cost >> " + Double.valueOf(fourDecimals.format(sumAvgMFCost/numRuns)));
+	    sb.append("\n----------------------Avg. PERMUTATION Cost >> " + Double.valueOf(fourDecimals.format(sumAvgPMCost/numRuns)));
 	    sb.append("\n----------------------Avg. GREEDY Cost >> " + Double.valueOf(fourDecimals.format(sumAvgGOCost/numRuns)));
 	    sb.append("\n\n-------------------AVERAGE BOTTLENECK COSTS (i = " + i + "):-----------------------\n\n");
 	    sb.append("\n----------------------Avg. OPT BNECK Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumOBBneckCost/numRuns)));
 	    sb.append("\n----------------------Avg. MAX FLOW Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumMFBneckCost/numRuns)));
+	    sb.append("\n----------------------Avg. PERMUTATION Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumPMBneckCost/numRuns)));
 	    sb.append("\n----------------------Avg. GREEDY Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumGOBneckCost/numRuns)));
 	    sb.append("\n\nWIN COUNTS (i = " + i + "):\n");
 	    sb.append("\nOPT BNECK WINS " + "\n\nAVERAGE >> " + obWins[0] + "\nWORST >> " + obWins[1] + "\nBEST >> " + obWins[2]);
 	    sb.append("\n\nMAX FLOW WINS " + "\n\nAVERAGE >> " + mfWins[0] + "\nWORST >> " + mfWins[1] + "\nBEST >> " + mfWins[2]);
+	    sb.append("\n\nPERMUTATION WINS " + "\n\nAVERAGE >> " + pmWins[0] + "\nWORST >> " + pmWins[1] + "\nBEST >> " + pmWins[2]);
 	    sb.append("\n\nGREEDY WINS " + "\n\nAVERAGE >> " + goWins[0] + "\nWORST >> " + goWins[1] + "\nBEST >> " + goWins[2]);
 	    try {
 		FileWriter fstream = new FileWriter("results/grid/GRID_" + i + "_RESULTS.txt");
@@ -249,10 +268,10 @@ public class TestGrid7080 {
 	return toReturn;
     }
 
-    private void determineWinners(double[] obCosts, double[] mfCosts, double[] goCosts) {
-	determineWinner(obCosts[0], mfCosts[0], goCosts[0], 0);
-	determineWinner(obCosts[1], mfCosts[1], goCosts[1], 1);
-	determineWinner(obCosts[2], mfCosts[2], goCosts[2], 2);
+    private void determineWinners(double[] obCosts, double[] mfCosts, double[] pmCosts, double[] goCosts) {
+	determineWinner(obCosts[0], mfCosts[0], pmCosts[0], goCosts[0], 0);
+	determineWinner(obCosts[1], mfCosts[1], pmCosts[0], goCosts[1], 1);
+	determineWinner(obCosts[2], mfCosts[2], pmCosts[0], goCosts[2], 2);
     }
 
     /**
@@ -261,12 +280,14 @@ public class TestGrid7080 {
      *Type is the index of algorithm's win array, or the "type" of wins per that objective
      *Type 0 = avg cost, 1 = worst cost, 2 = best cost
      */
-    private void determineWinner(double obCost, double mfCost, double goCost, int type) {
-	double avgWinner = Math.min(Math.min(obCost, mfCost), goCost);
+    private void determineWinner(double obCost, double mfCost, double pmCost, double goCost, int type) {
+	double avgWinner = Math.min(Math.min(obCost, mfCost), Math.min(pmCost, goCost));
 	if(avgWinner == obCost)
 	    obWins[type]++;
 	if(avgWinner == mfCost)
 	    mfWins[type]++;
+	if(avgWinner == pmCost)
+	    pmWins[type]++;
 	if(avgWinner == goCost)
 	    goWins[type]++;
     }
@@ -275,6 +296,7 @@ public class TestGrid7080 {
 	obWins[0] = obWins[1] = obWins[2] = 0;
 	mfWins[0] = mfWins[1] = mfWins[2] = 0;
 	goWins[0] = goWins[1] = goWins[2] = 0;
+	pmWins[0] = pmWins[1] = pmWins[2] = 0;
     }
 
     public static void main(String[] args) {

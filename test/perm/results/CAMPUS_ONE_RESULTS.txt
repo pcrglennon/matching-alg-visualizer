@@ -1,0 +1,91 @@
+
+----------NUM RUNS - 3-------
+
+---------CAMPUS MODEL ONE (n = 100)----------
+
+
+
+-----ITERATION 1------
+OPT BNECK AVG COST >> 3.6041   ||   OPT BNECK  COST >> 6.3246
+MAX FLOW AVG COST >> 3.5095   ||   MAX FLOW WORST COST >> 6.3246
+
+PERMUTATION AVG COST >> 3.763   ||   PERMUATION WORST COST >> 8.544
+NEW ALG 1 AVG COST >> 4.1917   ||   NEW ALG 1 WORST COST >> 9.4868
+NEW ALG 2 AVG COST >> 4.1917   ||   NEW ALG 2 WORST COST >> 9.4868
+GREEDY AVG COST >> 3.763   ||   GREEDY WORST COST >> 8.544
+
+-----ITERATION 2------
+OPT BNECK AVG COST >> 3.7263   ||   OPT BNECK  COST >> 6.3246
+MAX FLOW AVG COST >> 3.5095   ||   MAX FLOW WORST COST >> 6.3246
+
+PERMUTATION AVG COST >> 3.7652   ||   PERMUATION WORST COST >> 9.4868
+NEW ALG 1 AVG COST >> 4.1928   ||   NEW ALG 1 WORST COST >> 10.4403
+NEW ALG 2 AVG COST >> 4.1928   ||   NEW ALG 2 WORST COST >> 10.4403
+GREEDY AVG COST >> 3.7652   ||   GREEDY WORST COST >> 9.4868
+
+-----ITERATION 3------
+OPT BNECK AVG COST >> 3.7263   ||   OPT BNECK  COST >> 6.3246
+MAX FLOW AVG COST >> 3.5095   ||   MAX FLOW WORST COST >> 6.3246
+
+PERMUTATION AVG COST >> 3.7663   ||   PERMUATION WORST COST >> 10.4403
+NEW ALG 1 AVG COST >> 4.6327   ||   NEW ALG 1 WORST COST >> 10.4403
+NEW ALG 2 AVG COST >> 4.6327   ||   NEW ALG 2 WORST COST >> 10.4403
+GREEDY AVG COST >> 4.1159   ||   GREEDY WORST COST >> 10.4403
+
+-----------------------AVERAGE COSTS:-----------------------
+
+
+-------------------------Avg. OPT BNECK Cost >> 3.6855
+-------------------------Avg. MAX FLOW Cost >> 3.5095
+-------------------------Avg. PERMUTATION Cost >> 3.7648
+-------------------------Avg. NEW ALG 1 Cost >> 4.3391
+-------------------------Avg. NEW ALG 2 Cost >> 4.3391
+-------------------------Avg. GREEDY Cost >> 3.8814
+
+-----------------------AVERAGE BOTTLENECK COSTS:-----------------------
+
+
+-------------------------Avg. OPT BNECK Bottleneck Cost >> 6.3246
+-------------------------Avg. MAX FLOW Bottleneck Cost >> 6.3246
+-------------------------Avg. PERMUTATION Bottleneck Cost >> 9.4904
+-------------------------Avg. NEW ALG 1 Bottleneck Cost >> 10.1225
+-------------------------Avg. NEW ALG 2 Bottleneck Cost >> 10.1225
+-------------------------Avg. GREEDY Bottleneck Cost >> 9.4904
+
+FOR CAMPUS ONE (no additional spaces):
+
+OPT BNECK WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3
+
+MAX FLOW WINS 
+
+AVERAGE >> 3
+WORST >> 0
+BEST >> 3
+
+PERMUTATION WINS 
+
+AVERAGE >> 0
+WORST >> 3
+BEST >> 0
+
+NEW ALG 1 WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 2
+
+NEW ALG 2 WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 2
+
+GREEDY WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3

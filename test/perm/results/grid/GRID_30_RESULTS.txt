@@ -1,0 +1,75 @@
+
+
+----------2D GRID - RESULTS FOR N = (30)----------
+
+
+
+---------ITERATION 1----------
+
+
+OPT BNECK AVG COST >> 12.7989   ||   OPT BNECK WORST COST >> 18.3848
+MAX FLOW AVG COST >> 9.5013   ||   MAX FLOW WORST COST >> 21.095
+
+PERMUTATION AVG COST >> 22.0751   ||   PERMUATION WORST COST >> 55.8659
+GREEDY AVG COST >> 12.7782   ||   GREEDY WORST COST >> 56.6392
+
+---------ITERATION 2----------
+
+
+OPT BNECK AVG COST >> 8.8298   ||   OPT BNECK WORST COST >> 13.0384
+MAX FLOW AVG COST >> 7.2339   ||   MAX FLOW WORST COST >> 16.1245
+
+PERMUTATION AVG COST >> 25.7569   ||   PERMUATION WORST COST >> 51
+GREEDY AVG COST >> 9.9388   ||   GREEDY WORST COST >> 29.8329
+
+---------ITERATION 3----------
+
+
+OPT BNECK AVG COST >> 9.8906   ||   OPT BNECK WORST COST >> 14.3178
+MAX FLOW AVG COST >> 7.2617   ||   MAX FLOW WORST COST >> 15.2971
+
+PERMUTATION AVG COST >> 21.3927   ||   PERMUATION WORST COST >> 47.8853
+GREEDY AVG COST >> 7.7114   ||   GREEDY WORST COST >> 16.4012
+
+
+--------------------AVERAGE COSTS (i = 30):-------------------
+
+
+----------------------Avg. OPT BNECK Cost >> 10.5064
+----------------------Avg. MAX FLOW Cost >> 7.999
+----------------------Avg. PERMUTATION Cost >> 23.0749
+----------------------Avg. GREEDY Cost >> 10.1428
+
+-------------------AVERAGE BOTTLENECK COSTS (i = 30):-----------------------
+
+
+----------------------Avg. OPT BNECK Bottleneck Cost >> 15.247
+----------------------Avg. MAX FLOW Bottleneck Cost >> 17.5055
+----------------------Avg. PERMUTATION Bottleneck Cost >> 51.5837
+----------------------Avg. GREEDY Bottleneck Cost >> 34.2911
+
+WIN COUNTS (i = 30):
+
+OPT BNECK WINS 
+
+AVERAGE >> 0
+WORST >> 3
+BEST >> 1
+
+MAX FLOW WINS 
+
+AVERAGE >> 3
+WORST >> 0
+BEST >> 3
+
+PERMUTATION WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 0
+
+GREEDY WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3

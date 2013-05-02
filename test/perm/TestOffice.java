@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Runs Max-Flow, Opt Bottleneck,  both New Algs, and Greedy on the Office Model
+ * Runs Max-Flow, Opt Bottleneck,  both New Algs, and Greedy on Office Model
  *
- * Optimal Threshold for Office  = 14
+ * Optimal Threshold for Office = 14
  */
 
 public class TestOffice {
@@ -20,12 +20,14 @@ public class TestOffice {
 
     private OptBottleneck ob;
     private MaxFlowBP mf;
+    private PermutationMatch pm;
     private NewAlgs na;
 
     //Store win counts for Average Cost, Worst Cost, and Best Cost (in that order)
     //i.e. mfWins[0] = number of Average Cost Wins
     private int[] obWins = {0,0,0};
     private int[] mfWins = {0,0,0};
+    private int[] pmWins = {0,0,0};
     private int[] na1Wins = {0,0,0};
     private int[] na2Wins = {0,0,0};
     private int[] goWins = {0,0,0};
@@ -100,6 +102,14 @@ public class TestOffice {
 	return mfMatching;
     }
 
+    /**  -------------------------PERMUTATION-------------------------  */
+
+    public ArrayList<MatchInfo> runPermutationMatch() {
+	pm = new PermutationMatch(spots, destinations);
+	ArrayList<MatchInfo> pmMatching = pm.runAlgorithm();
+	return pmMatching;
+    }
+
      /**  -------------------------NEW ALGORITHMS-------------------------  */
     
     public ArrayList<MatchInfo> newAlgOneMatch() {
@@ -147,12 +157,14 @@ public class TestOffice {
     public void test() {
 	//Size of the parking model
 	DecimalFormat fourDecimals = new DecimalFormat("#.####");
-	int numRuns = 3;
+	int numRuns = 100;
 	StringBuilder sb = new StringBuilder();
 	double sumAvgOBCost = 0.0;
 	double sumOBBneckCost = 0.0;
 	double sumAvgMFCost = 0.0;
 	double sumMFBneckCost = 0.0;
+	double sumAvgPMCost = 0.0;
+	double sumPMBneckCost = 0.0;
 	double sumAvgNA1Cost = 0.0;
 	double sumNA1BneckCost = 0.0;
 	double sumAvgNA2Cost = 0.0;
@@ -160,7 +172,7 @@ public class TestOffice {
 	double sumAvgGOCost = 0.0;
 	double sumGOBneckCost = 0.0;
 	sb.append("\n----------NUM RUNS - " + numRuns + "-------\n");
-	sb.append("\n\n---------OFFICE MODEL(n = 150)----------\n\n");
+	sb.append("\n---------CAMPUS MODEL ONE (n = 100)----------\n\n");
 	for(int j = 1; j <= numRuns; j++) {
 	    //Randomize arrival order
 	    resetModel();
@@ -174,6 +186,10 @@ public class TestOffice {
 	    double[] mfMatchingCosts = getMFCosts(mfMatching);
 	    sumAvgMFCost += mfMatchingCosts[0];
 	    sumMFBneckCost += mfMatchingCosts[1];
+	    ArrayList<MatchInfo> pmMatching = runPermutationMatch();
+	    double[] pmMatchingCosts = getCosts(pmMatching);
+	    sumAvgPMCost += pmMatchingCosts[0];
+	    sumPMBneckCost += pmMatchingCosts[1];
 	    ArrayList<MatchInfo> na1Matching = newAlgOneMatch();
 	    double[] na1MatchingCosts = getCosts(na1Matching);
 	    sumAvgNA1Cost += na1MatchingCosts[0];
@@ -187,11 +203,13 @@ public class TestOffice {
 	    sumAvgGOCost += goMatchingCosts[0];
 	    sumGOBneckCost += goMatchingCosts[1];
 	    //Determine Winners
-	    determineWinners(obMatchingCosts, mfMatchingCosts, na1MatchingCosts, na2MatchingCosts, goMatchingCosts);
+	    determineWinners(obMatchingCosts, mfMatchingCosts, pmMatchingCosts, na1MatchingCosts, na2MatchingCosts, goMatchingCosts);
 	    sb.append("\nOPT BNECK AVG COST >> " + fourDecimals.format(obMatchingCosts[0]));
-	    sb.append("   ||   OPT BNECK WORST COST >> " + fourDecimals.format(obMatchingCosts[1]));
+	    sb.append("   ||   OPT BNECK  COST >> " + fourDecimals.format(obMatchingCosts[1]));
 	    sb.append("\nMAX FLOW AVG COST >> " + fourDecimals.format(mfMatchingCosts[0]));
 	    sb.append("   ||   MAX FLOW WORST COST >> " + fourDecimals.format(mfMatchingCosts[1]));
+	    sb.append("\n\nPERMUTATION AVG COST >> " + fourDecimals.format(pmMatchingCosts[0]));
+	    sb.append("   ||   PERMUATION WORST COST >> " + fourDecimals.format(pmMatchingCosts[1]));
 	    sb.append("\nNEW ALG 1 AVG COST >> " + fourDecimals.format(na1MatchingCosts[0]));
 	    sb.append("   ||   NEW ALG 1 WORST COST >> " + fourDecimals.format(na1MatchingCosts[1]));
 	    sb.append("\nNEW ALG 2 AVG COST >> " + fourDecimals.format(na2MatchingCosts[0]));
@@ -200,20 +218,23 @@ public class TestOffice {
 	    sb.append("   ||   GREEDY WORST COST >> " + fourDecimals.format(goMatchingCosts[1]));
 	}	
 	sb.append("\n\n-----------------------AVERAGE COSTS:-----------------------\n\n");
-	sb.append("\n-------------------------Avg. OPT BNECK Cost >> " + Double.valueOf(fourDecimals.format(sumAvgOBCost/numRuns)));
-	sb.append("\n-------------------------Avg. MAX FLOW Cost >> " + Double.valueOf(fourDecimals.format(sumAvgMFCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 1 Cost >> " + Double.valueOf(fourDecimals.format(sumAvgNA1Cost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 2 Cost >> " + Double.valueOf(fourDecimals.format(sumAvgNA2Cost/numRuns)));
-	sb.append("\n-------------------------Avg. GREEDY Cost >> " + Double.valueOf(fourDecimals.format(sumAvgGOCost/numRuns)));
+	sb.append("\n-------------------------Avg. OPT BNECK Cost >> " + fourDecimals.format(sumAvgOBCost/numRuns));
+	sb.append("\n-------------------------Avg. MAX FLOW Cost >> " + fourDecimals.format(sumAvgMFCost/numRuns));
+	sb.append("\n-------------------------Avg. PERMUTATION Cost >> " + fourDecimals.format(sumAvgPMCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 1 Cost >> " + fourDecimals.format(sumAvgNA1Cost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 2 Cost >> " + fourDecimals.format(sumAvgNA2Cost/numRuns));
+	sb.append("\n-------------------------Avg. GREEDY Cost >> " + fourDecimals.format(sumAvgGOCost/numRuns));
 sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------------\n\n");
-	sb.append("\n-------------------------Avg. OPT BNECK Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumOBBneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. MAX FLOW Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumMFBneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 1 Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumNA1BneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 2 Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumNA2BneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. GREEDY Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumGOBneckCost/numRuns)));
-	sb.append("\n\nFOR OFFICE MODEL:\n");
+	sb.append("\n-------------------------Avg. OPT BNECK Bottleneck Cost >> " + fourDecimals.format(sumOBBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. MAX FLOW Bottleneck Cost >> " + fourDecimals.format(sumMFBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. PERMUTATION Bottleneck Cost >> " + fourDecimals.format(sumPMBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 1 Bottleneck Cost >> " + fourDecimals.format(sumNA1BneckCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 2 Bottleneck Cost >> " + fourDecimals.format(sumNA2BneckCost/numRuns));
+	sb.append("\n-------------------------Avg. GREEDY Bottleneck Cost >> " + fourDecimals.format(sumGOBneckCost/numRuns));
+	sb.append("\n\nFOR CAMPUS ONE (no additional spaces):\n");
 	sb.append("\nOPT BNECK WINS " + "\n\nAVERAGE >> " + obWins[0] + "\nWORST >> " + obWins[1] + "\nBEST >> " + obWins[2]);
 	sb.append("\n\nMAX FLOW WINS " + "\n\nAVERAGE >> " + mfWins[0] + "\nWORST >> " + mfWins[1] + "\nBEST >> " + mfWins[2]);
+	sb.append("\n\nPERMUTATION WINS " + "\n\nAVERAGE >> " + pmWins[0] + "\nWORST >> " + pmWins[1] + "\nBEST >> " + pmWins[2]);
 	sb.append("\n\nNEW ALG 1 WINS " + "\n\nAVERAGE >> " + na1Wins[0] + "\nWORST >> " + na1Wins[1] + "\nBEST >> " + na1Wins[2]);
 	sb.append("\n\nNEW ALG 2 WINS " + "\n\nAVERAGE >> " + na2Wins[0] + "\nWORST >> " + na2Wins[1] + "\nBEST >> " + na2Wins[2]);
 	sb.append("\n\nGREEDY WINS " + "\n\nAVERAGE >> " + goWins[0] + "\nWORST >> " + goWins[1] + "\nBEST >> " + goWins[2]);
@@ -269,10 +290,10 @@ sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------
 	return toReturn;
     }
 
-    private void determineWinners(double[] obCosts, double[] mfCosts, double[] na1Costs, double[] na2Costs, double[] goCosts) {
-	determineWinner(obCosts[0], mfCosts[0], na1Costs[0], na2Costs[0], goCosts[0], 0);
-	determineWinner(obCosts[1], mfCosts[1], na1Costs[1], na2Costs[1], goCosts[1], 1);
-	determineWinner(obCosts[2], mfCosts[2], na1Costs[2], na2Costs[2], goCosts[2], 2);
+    private void determineWinners(double[] obCosts, double[] mfCosts, double[] pmCosts, double[] na1Costs, double[] na2Costs, double[] goCosts) {
+	determineWinner(obCosts[0], mfCosts[0], pmCosts[0], na1Costs[0], na2Costs[0], goCosts[0], 0);
+	determineWinner(obCosts[1], mfCosts[1], pmCosts[0], na1Costs[1], na2Costs[1], goCosts[1], 1);
+	determineWinner(obCosts[2], mfCosts[2], pmCosts[0], na1Costs[2], na2Costs[2], goCosts[2], 2);
     }
 
     /**
@@ -281,12 +302,14 @@ sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------
      *Type is the index of algorithm's win array, or the "type" of wins per that objective
      *Type 0 = avg cost, 1 = worst cost, 2 = best cost
      */
-    private void determineWinner(double obCost, double mfCost, double na1Cost, double na2Cost, double goCost, int type) {
-	double avgWinner = Math.min(Math.min(Math.min(obCost, mfCost), na1Cost), Math.min(na2Cost, goCost));
+    private void determineWinner(double obCost, double mfCost, double pmCost, double na1Cost, double na2Cost, double goCost, int type) {
+	double avgWinner = Math.min(Math.min(Math.min(obCost, mfCost), Math.min(pmCost, na1Cost)), Math.min(na2Cost, goCost));
 	if(avgWinner == obCost)
 	    obWins[type]++;
 	if(avgWinner == mfCost)
 	    mfWins[type]++;
+	if(avgWinner == pmCost)
+	    pmWins[type]++;
 	if(avgWinner == na1Cost)
 	    na1Wins[type]++;
 	if(avgWinner == na2Cost)

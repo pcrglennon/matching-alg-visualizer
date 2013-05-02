@@ -7,14 +7,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Runs Max-Flow, Opt Bottleneck,  both New Algs, and Greedy on Campus Model 1
+ * Runs Max-Flow, both New Algs, and Greedy on Campus Model 1 w/ 17 additional
+ * high-desirability spots
  *
- * Optimal Threshold for Campus 1  = 21
+ * Note - Does not include Opt Bottleneck, as that algorithm requires that
+ * the # of spots(server nodes) = the # of destinations to set up a square 
+ * (n x n) cost matrix
+ *
+ * Optimal Threshold for Campus 1 w/ extra spots = 19
  */
 
-public class TestCampusOne {
+public class TestCampusOneExtra {
 
-    private CampusModelOne campusOne;
+    private CampusModelOne campusOneExtra;
     private ArrayList<Node> spots;
     private ArrayList<Node> destinations;
 
@@ -32,21 +37,21 @@ public class TestCampusOne {
     private int[] na2Wins = {0,0,0};
     private int[] goWins = {0,0,0};
 
-    public TestCampusOne() {
+    public TestCampusOneExtra() {
 	initModel();
 	na = new NewAlgs(spots, destinations);
-	na.setThreshold(21);
+	na.setThreshold(19);
     }
 
     private void initModel() {
-	campusOne = new CampusModelOne();
-	spots = campusOne.getNewSpots();
-	destinations = campusOne.getNewDestinations();
+	campusOneExtra = new CampusModelOne();
+	spots = campusOneExtra.getNewSpots(true);
+	destinations = campusOneExtra.getNewDestinations();
     }
     
     private void resetModel() {
-	spots = campusOne.getNewSpots();
-	destinations = campusOne.getNewDestinations();
+	spots = campusOneExtra.getNewSpots(true);
+	destinations = campusOneExtra.getNewDestinations();
     }
 
     public ArrayList<Node> getSpotsCopy() {
@@ -96,9 +101,11 @@ public class TestCampusOne {
 	return g;
     }
 
+    //For this Model, there are more spots than destinations, so run max flow
+    //until all request nodes(destinations) are matched, via runIncompleteSet()
     public ArrayList<Graph.Edge> maxFlowMatch() {
 	mf = new MaxFlowBP(makeGraph(destinations, spots));
-	ArrayList<Graph.Edge> mfMatching = mf.runAlgorithm();
+	ArrayList<Graph.Edge> mfMatching = mf.runIncompleteSet();
 	return mfMatching;
     }
 
@@ -157,7 +164,7 @@ public class TestCampusOne {
     public void test() {
 	//Size of the parking model
 	DecimalFormat fourDecimals = new DecimalFormat("#.####");
-	int numRuns = 3;
+	int numRuns = 100;
 	StringBuilder sb = new StringBuilder();
 	double sumAvgOBCost = 0.0;
 	double sumOBBneckCost = 0.0;
@@ -239,7 +246,7 @@ sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------
 	sb.append("\n\nNEW ALG 2 WINS " + "\n\nAVERAGE >> " + na2Wins[0] + "\nWORST >> " + na2Wins[1] + "\nBEST >> " + na2Wins[2]);
 	sb.append("\n\nGREEDY WINS " + "\n\nAVERAGE >> " + goWins[0] + "\nWORST >> " + goWins[1] + "\nBEST >> " + goWins[2]);
 	try {
-	    FileWriter fstream = new FileWriter("results/CAMPUS_ONE_RESULTS.txt");
+	    FileWriter fstream = new FileWriter("results/CAMPUS_ONE_EXTRACAP_RESULTS.txt");
 	    BufferedWriter out = new BufferedWriter(fstream);
 	    out.write(sb.toString());
 	    out.close();
@@ -319,7 +326,7 @@ sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------
     }
 
     public static void main(String[] args) {
-	TestCampusOne tc1 = new TestCampusOne();
-	tc1.test();
+	TestCampusOneExtra tc1e = new TestCampusOneExtra();
+	tc1e.test();
     }
 }

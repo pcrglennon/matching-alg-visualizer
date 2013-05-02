@@ -124,6 +124,8 @@ public class MaxFlowBP {
      * index - Index of new Request Node
      */
     public void addRequestNode(Node r, int index) {
+	//Unmatched by default
+	r.setMatched(false);
 	g.yNodes.put(index, r);
 	g.addEdgeToSink(index);
 	int sIndex = 1;

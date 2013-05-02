@@ -157,7 +157,7 @@ public class TestCampusOne {
     public void test() {
 	//Size of the parking model
 	DecimalFormat fourDecimals = new DecimalFormat("#.####");
-	int numRuns = 3;
+	int numRuns = 100;
 	StringBuilder sb = new StringBuilder();
 	double sumAvgOBCost = 0.0;
 	double sumOBBneckCost = 0.0;
@@ -218,19 +218,19 @@ public class TestCampusOne {
 	    sb.append("   ||   GREEDY WORST COST >> " + fourDecimals.format(goMatchingCosts[1]));
 	}	
 	sb.append("\n\n-----------------------AVERAGE COSTS:-----------------------\n\n");
-	sb.append("\n-------------------------Avg. OPT BNECK Cost >> " + Double.valueOf(fourDecimals.format(sumAvgOBCost/numRuns)));
-	sb.append("\n-------------------------Avg. MAX FLOW Cost >> " + Double.valueOf(fourDecimals.format(sumAvgMFCost/numRuns)));
-	sb.append("\n-------------------------Avg. PERMUTATION Cost >> " + Double.valueOf(fourDecimals.format(sumAvgPMCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 1 Cost >> " + Double.valueOf(fourDecimals.format(sumAvgNA1Cost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 2 Cost >> " + Double.valueOf(fourDecimals.format(sumAvgNA2Cost/numRuns)));
-	sb.append("\n-------------------------Avg. GREEDY Cost >> " + Double.valueOf(fourDecimals.format(sumAvgGOCost/numRuns)));
+	sb.append("\n-------------------------Avg. OPT BNECK Cost >> " + fourDecimals.format(sumAvgOBCost/numRuns));
+	sb.append("\n-------------------------Avg. MAX FLOW Cost >> " + fourDecimals.format(sumAvgMFCost/numRuns));
+	sb.append("\n-------------------------Avg. PERMUTATION Cost >> " + fourDecimals.format(sumAvgPMCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 1 Cost >> " + fourDecimals.format(sumAvgNA1Cost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 2 Cost >> " + fourDecimals.format(sumAvgNA2Cost/numRuns));
+	sb.append("\n-------------------------Avg. GREEDY Cost >> " + fourDecimals.format(sumAvgGOCost/numRuns));
 sb.append("\n\n-----------------------AVERAGE BOTTLENECK COSTS:-----------------------\n\n");
-	sb.append("\n-------------------------Avg. OPT BNECK Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumOBBneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. MAX FLOW Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumMFBneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. PERMUTATION Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumPMBneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 1 Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumNA1BneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. NEW ALG 2 Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumNA2BneckCost/numRuns)));
-	sb.append("\n-------------------------Avg. GREEDY Bottleneck Cost >> " + Double.valueOf(fourDecimals.format(sumGOBneckCost/numRuns)));
+	sb.append("\n-------------------------Avg. OPT BNECK Bottleneck Cost >> " + fourDecimals.format(sumOBBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. MAX FLOW Bottleneck Cost >> " + fourDecimals.format(sumMFBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. PERMUTATION Bottleneck Cost >> " + fourDecimals.format(sumPMBneckCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 1 Bottleneck Cost >> " + fourDecimals.format(sumNA1BneckCost/numRuns));
+	sb.append("\n-------------------------Avg. NEW ALG 2 Bottleneck Cost >> " + fourDecimals.format(sumNA2BneckCost/numRuns));
+	sb.append("\n-------------------------Avg. GREEDY Bottleneck Cost >> " + fourDecimals.format(sumGOBneckCost/numRuns));
 	sb.append("\n\nFOR CAMPUS ONE (no additional spaces):\n");
 	sb.append("\nOPT BNECK WINS " + "\n\nAVERAGE >> " + obWins[0] + "\nWORST >> " + obWins[1] + "\nBEST >> " + obWins[2]);
 	sb.append("\n\nMAX FLOW WINS " + "\n\nAVERAGE >> " + mfWins[0] + "\nWORST >> " + mfWins[1] + "\nBEST >> " + mfWins[2]);

@@ -144,7 +144,7 @@ public class TestCampusOneExtra {
     public void test() {
 	//Size of the parking model
 	DecimalFormat fourDecimals = new DecimalFormat("#.####");
-	int numRuns = 3;
+	int numRuns = 150;
 	StringBuilder sb = new StringBuilder();
 	double sumAvgMFCost = 0.0;
 	double sumMFBneckCost = 0.0;

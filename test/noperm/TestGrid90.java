@@ -8,9 +8,7 @@ import java.util.Random;
 
 /**
  * Runs Max-Flow, Opt Bottleneck,  both New Algs, and Greedy on The 2D Grid 
- * w/ n = 10 up to 60, by increments of 10
- *
- * Optimal Threshold for Campus 1  = 21
+ * w/ n = 90
  */
 
 public class TestGrid90 {
