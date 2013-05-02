@@ -16,7 +16,7 @@ public class MaxFlowBP {
 	setInitialNodePrices();
 	int counter = 1;
 	while(!isPerfectMatching()) {
-	    System.out.println("\nITERATION >> " + counter);
+	    System.out.println("\nMF ITERATION >> " + counter);
 	    HashMap<Node, PathInfo> pathsFromSource = new Dijkstra(g).runAlgorithm();
 	    PathInfo minPathToSink = getMinPathToSink(pathsFromSource);
 	    //System.out.println("\nPATH\n" + minPathToSink.path);

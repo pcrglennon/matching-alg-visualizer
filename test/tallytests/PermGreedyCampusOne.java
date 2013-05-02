@@ -13,12 +13,6 @@ import java.util.Random;
  * 1) Avg. Match Dist
  * 2) Worst Match Dist
  * 3) Best Match Dist
- *
- * The four models:
- * 1) Campus Model 1
- * 2) Campus Model 1 w/ 17 additional high-priority spaces
- * 3) Campus Model 2
- * 4) Office Model
  */
 
 public class PermGreedyCampusOne {

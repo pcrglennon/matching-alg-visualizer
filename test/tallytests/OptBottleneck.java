@@ -34,15 +34,17 @@ public class OptBottleneck {
     private ArrayList<Cost> matches;
 
     public OptBottleneck() {
-	maxDistance = 8;
-	numberNodes = 3;
 	sNodes = new ArrayList<Node>(numberNodes);
 	rNodes = new ArrayList<Node>(numberNodes);
+    }
+
+    public OptBottleneck(ArrayList<Node> sNodes, ArrayList<Node> rNodes) {
+	this.sNodes = sNodes;
+	this.rNodes = rNodes;
     }
     
     private ArrayList<Cost> run() {
 	costMatrix = setupCostMatrix();
-	printStuff();
 	//These structures are used by the algorithm
 	rowChecked = new HashMap<Integer, Boolean>();
 	uncheckedCols = new ArrayList<Integer>();
@@ -50,7 +52,6 @@ public class OptBottleneck {
 	boolean optimalMatch = false;
 	while(!optimalMatch) {
 	    Cost bNeckCost = getBottleneckCost(); //Rule 1
-	    System.out.println("bNC >> " + bNeckCost);
 	    double bNeckVal = bNeckCost.val;
 	    uncheckedCols.add(bNeckCost.j);
 	    Integer curCol = findUncheckedCol(); //Rule 2
@@ -61,7 +62,6 @@ public class OptBottleneck {
 	    Cost curCost;
 	    while(curCol > - 1) {
 		curCost = goToUnmatchedCostInCol(curCol, bNeckVal); //Rule 3
-		System.out.println("Going to UM C >> " + curCost);
 		if(curCost == null) {
 		    uncheckedCols.remove(curCol);
 		    curCol = findUncheckedCol(); //Return to Rule 2
@@ -72,16 +72,11 @@ public class OptBottleneck {
 		} else {
 		    curCost.checked = true;
 		    rowChecked.put(curCost.i, true); //Rule 4
-		    System.out.println("CHECKED " + curCost);
 		    curCost = goToMatchedCostInRow(curCost.i);
 		    curCol = curCost.j;
-		    System.out.println("Going to M C >> " + curCost);
 		    if(uncheckedCols.contains(curCost.j)) {
 			curCost.matched = false; //Rule 5
-			System.out.println("REMOVING >> " + curCost);
 			matches.remove(curCost);
-			System.out.println(matches);
-			System.out.println("SWITCHING MATCHES");
 			switchMatches(curCost, 1); //Rule 6
 			uncheckedCols.clear(); //Rule 7
 			for(Integer i: rowChecked.keySet()) {
@@ -100,7 +95,6 @@ public class OptBottleneck {
 		}
 	    }
 	}
-	System.out.println(matches);
 	return matches;
     }
 
@@ -111,18 +105,14 @@ public class OptBottleneck {
 	if(c > 3) 
 	    return;
 	curCost = goToCheckedCostInRow(curCost.i);
-	System.out.println("Matching >> " + curCost);
 	matches.add(curCost);
 	System.out.println(matches);
 	curCost = goToNextMatchedCostInCol(curCost);
-	System.out.println("Going to M C >> " + curCost);
 	if(curCost == null)
 	    //No other matched cost in Col, done
 	    return;
 	else {
 	    matches.remove(curCost);
-	    System.out.println("REMOVED COST " + curCost.val + " from matches");
-	    System.out.println(matches);
 	    switchMatches(curCost, c+1);
 	}
     }
@@ -270,11 +260,13 @@ public class OptBottleneck {
 	System.out.println("\n");
     }
 
+    /**
     public static void main(String[] args) {
 	OptBottleneck obn = new OptBottleneck();
 	obn.newRandomNodes();
 	obn.run();
     }
+    */
 
 }
 

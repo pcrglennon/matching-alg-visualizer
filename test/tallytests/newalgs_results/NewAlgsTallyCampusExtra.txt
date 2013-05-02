@@ -1,0 +1,129 @@
+Num Runs - 3000
+
+
+
+
+========THRESHOLD 18========
+
+
+A1 Avg. Match length for Thresh. 18 >> 17.152
+A2 Avg. Match length for Thresh. 18 >> 17.1552
+GREEDY Avg. Match Length >> 17.152
+
+A1 WINS:
+AVERAGE >> 311  BNECK >> 24  BEST >> 0
+
+A2 WINS:
+AVERAGE >> 220  BNECK >> 6  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 311  BNECK >> 24  BEST >> 0
+
+
+
+========THRESHOLD 19========
+
+
+A1 Avg. Match length for Thresh. 19 >> 17.5938
+A2 Avg. Match length for Thresh. 19 >> 17.2366
+GREEDY Avg. Match Length >> 17.1521
+
+A1 WINS:
+AVERAGE >> 0  BNECK >> 2  BEST >> 0
+
+A2 WINS:
+AVERAGE >> 1036  BNECK >> 1680  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 1983  BNECK >> 2034  BEST >> 1
+
+
+
+========THRESHOLD 20========
+
+
+A1 Avg. Match length for Thresh. 20 >> 17.542
+A2 Avg. Match length for Thresh. 20 >> 17.3376
+GREEDY Avg. Match Length >> 17.129
+
+A1 WINS:
+AVERAGE >> 4  BNECK >> 2  BEST >> 0
+
+A2 WINS:
+AVERAGE >> 732  BNECK >> 1000  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 2264  BNECK >> 1973  BEST >> 0
+
+
+
+========THRESHOLD 21========
+
+
+A1 Avg. Match length for Thresh. 21 >> 17.5663
+A2 Avg. Match length for Thresh. 21 >> 17.4039
+GREEDY Avg. Match Length >> 17.1477
+
+A1 WINS:
+AVERAGE >> 8  BNECK >> 4  BEST >> 0
+
+A2 WINS:
+AVERAGE >> 529  BNECK >> 705  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 2467  BNECK >> 1986  BEST >> 0
+
+
+
+========THRESHOLD 22========
+
+
+A1 Avg. Match length for Thresh. 22 >> 17.4751
+A2 Avg. Match length for Thresh. 22 >> 17.4074
+GREEDY Avg. Match Length >> 17.1705
+
+A1 WINS:
+AVERAGE >> 90  BNECK >> 6  BEST >> 0
+
+A2 WINS:
+AVERAGE >> 432  BNECK >> 491  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 2484  BNECK >> 1998  BEST >> 0
+
+
+
+========THRESHOLD 23========
+
+
+A1 Avg. Match length for Thresh. 23 >> 17.4387
+A2 Avg. Match length for Thresh. 23 >> 17.3963
+GREEDY Avg. Match Length >> 17.161
+
+A1 WINS:
+AVERAGE >> 159  BNECK >> 13  BEST >> 2
+
+A2 WINS:
+AVERAGE >> 434  BNECK >> 395  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 2416  BNECK >> 2003  BEST >> 2
+
+
+
+========THRESHOLD 24========
+
+
+A1 Avg. Match length for Thresh. 24 >> 17.4699
+A2 Avg. Match length for Thresh. 24 >> 17.4511
+GREEDY Avg. Match Length >> 17.146
+
+A1 WINS:
+AVERAGE >> 179  BNECK >> 16  BEST >> 31
+
+A2 WINS:
+AVERAGE >> 328  BNECK >> 219  BEST >> 0
+
+GREEDY WINS:
+AVERAGE >> 2592  BNECK >> 1979  BEST >> 32
+

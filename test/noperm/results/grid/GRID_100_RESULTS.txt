@@ -1,0 +1,61 @@
+
+
+----------2D GRID - RESULTS FOR N = (100)----------
+
+
+
+---------ITERATION 1----------
+
+
+OPT BNECK AVG COST >> 14.1166   ||   OPT BNECK WORST COST >> 19.8494
+MAX FLOW AVG COST >> 9.0612   ||   MAX FLOW WORST COST >> 31.3209
+GREEDY AVG COST >> 11.3782   ||   GREEDY WORST COST >> 74.2159
+
+---------ITERATION 2----------
+
+
+OPT BNECK AVG COST >> 11.8199   ||   OPT BNECK WORST COST >> 17.0294
+MAX FLOW AVG COST >> 7.5642   ||   MAX FLOW WORST COST >> 22.561
+GREEDY AVG COST >> 9.4707   ||   GREEDY WORST COST >> 52.2015
+
+---------ITERATION 3----------
+
+
+OPT BNECK AVG COST >> 16.3722   ||   OPT BNECK WORST COST >> 23.0868
+MAX FLOW AVG COST >> 11.935   ||   MAX FLOW WORST COST >> 59.0085
+GREEDY AVG COST >> 17.1744   ||   GREEDY WORST COST >> 96.3846
+
+
+--------------------AVERAGE COSTS (i = 100):-------------------
+
+
+----------------------Avg. OPT BNECK Cost >> 14.1029
+----------------------Avg. MAX FLOW Cost >> 9.5202
+----------------------Avg. GREEDY Cost >> 12.6744
+
+-------------------AVERAGE BOTTLENECK COSTS (i = 100):-----------------------
+
+
+----------------------Avg. OPT BNECK Bottleneck Cost >> 19.9885
+----------------------Avg. MAX FLOW Bottleneck Cost >> 37.6301
+----------------------Avg. GREEDY Bottleneck Cost >> 74.2674
+
+WIN COUNTS (i = 100):
+
+OPT BNECK WINS 
+
+AVERAGE >> 0
+WORST >> 3
+BEST >> 1
+
+MAX FLOW WINS 
+
+AVERAGE >> 3
+WORST >> 0
+BEST >> 3
+
+GREEDY WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 2

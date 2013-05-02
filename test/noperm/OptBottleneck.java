@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
+import java.text.DecimalFormat;
+
 /**
  * An implementation of Gross' Optimal Bottleneck Assignment Algorithm (1959)
  */
@@ -11,9 +13,7 @@ public class OptBottleneck {
     private ArrayList<Node> sNodes;
     private ArrayList<Node> rNodes;
 
-    private int numberNodes;
-    private int maxDistance;
-
+    private int nNodes = 6;
     //Structures used by the Algorithm
     
     /** Cost Matrix: 
@@ -31,32 +31,37 @@ public class OptBottleneck {
     //Contains checked costs
     private ArrayList<Cost> checkedCosts;
     //Used to look for "unchecked zeros in a column", from Gross Alg.
-    private ArrayList<Integer> uncheckedCols;
+    private ArrayList<Integer> uncheckedZeroCols;
+    //Holds any "checked" zero columns, which are NOT the same as a column w/o a zero
+    private ArrayList<Integer> checkedZeroCols;
 
     private ArrayList<Cost> matches;
 
     public OptBottleneck() {
-	maxDistance = 8;
-	numberNodes = 4;
-	sNodes = new ArrayList<Node>(numberNodes);
-	rNodes = new ArrayList<Node>(numberNodes);
+	sNodes = new ArrayList<Node>(nNodes);
+	rNodes = new ArrayList<Node>(nNodes);
+    }
+
+    public OptBottleneck(ArrayList<Node> sNodes, ArrayList<Node> rNodes) {
+	this.sNodes = sNodes;
+	this.rNodes = rNodes;
     }
     
-    private ArrayList<Cost> run() {
+    public ArrayList<MatchInfo> run() {
 	costMatrix = setupCostMatrix();
-	printStuff();
 	//These structures are used by the algorithm
 	rowChecked = new HashMap<Integer, Boolean>();
 	checkedCosts = new ArrayList<Cost>();
-	uncheckedCols = new ArrayList<Integer>();
+	uncheckedZeroCols = new ArrayList<Integer>();
+	checkedZeroCols = new ArrayList<Integer>();
 	matches = setupInitialCosts();
 	boolean optimalMatch = false;
 	while(!optimalMatch) {
 	    Cost bNeckCost = getBottleneckCost(); //Rule 1
-	    System.out.println("bNC >> " + bNeckCost);
+	    //System.out.println("bNC >> " + bNeckCost);
 	    double bNeckVal = bNeckCost.val;
-	    uncheckedCols.add(bNeckCost.j);
-	    Integer curCol = findUncheckedCol(); //Rule 2
+	    uncheckedZeroCols.add(bNeckCost.j);
+	    Integer curCol = findUncheckedZeroCol(); //Rule 2
 	    if(curCol == -1) {
 		optimalMatch = true;
 		break;
@@ -64,10 +69,11 @@ public class OptBottleneck {
 	    Cost curCost;
 	    while(curCol > - 1) {
 		curCost = goToUnmatchedCostInCol(curCol, bNeckVal); //Rule 3
-		System.out.println("Going to UM C >> " + curCost);
+		//System.out.println("Going to UM C >> " + curCost);
 		if(curCost == null) {
-		    uncheckedCols.remove(curCol);
-		    curCol = findUncheckedCol(); //Return to Rule 2
+		    uncheckedZeroCols.remove(curCol);
+		    checkedZeroCols.add(curCol);
+		    curCol = findUncheckedZeroCol(); //Return to Rule 2
 		    if(curCol == -1) {
 			optimalMatch = true;
 			break;
@@ -75,59 +81,60 @@ public class OptBottleneck {
 		} else {
 		    checkedCosts.add(curCost);
 		    rowChecked.put(curCost.i, true); //Rule 4
-		    System.out.println("CHECKED " + curCost);
+		    //System.out.println("CHECKED " + curCost);
 		    curCost = goToMatchedCostInRow(curCost.i);
 		    curCol = curCost.j;
-		    System.out.println("Going to M C >> " + curCost);
-		    if(uncheckedCols.contains(curCost.j)) {
-			System.out.println("REMOVING >> " + curCost);
+		    //System.out.println("Going to M C >> " + curCost);
+		    if(uncheckedZeroCols.contains(curCost.j) || checkedZeroCols.contains(curCost.j)) {
+			//System.out.println("REMOVING >> " + curCost);
 			matches.remove(curCost);
-			System.out.println(matches);
-			System.out.println("SWITCHING MATCHES");
-			switchMatches(curCost, 1); //Rule 6
-			uncheckedCols.clear(); //Rule 7
+			//System.out.println(matches);
+			//System.out.println("SWITCHING MATCHES");
+			switchMatches(curCost); //Rule 6
+			uncheckedZeroCols.clear(); //Rule 7
+			checkedZeroCols.clear();
 			checkedCosts.clear();
+			
 			for(Integer i: rowChecked.keySet()) {
 			    rowChecked.put(i, false);
 			}
 			//Reset, break out of loop
 			curCol = -1;
 		    } else {
-			uncheckedCols.add(curCost.j); //Return to Rule 3
+			uncheckedZeroCols.add(curCost.j); //Return to Rule 3
 		    }
 		}
 	    }
 	}
-	System.out.println(matches);
-	return matches;
+	//System.out.println(matches);
+	ArrayList<MatchInfo> finalMatches = getFinalMatches(matches);
+	return finalMatches;
     }
 
     /**
      * Switches checked and matched costs, according to Rule 6 of the algorithm
      */
-    private void switchMatches(Cost curCost, int c) {
-	if(c > 3) 
-	    return;
+    private void switchMatches(Cost curCost) {
 	curCost = goToCheckedCostInRow(curCost.i);
-	System.out.println("Matching >> " + curCost);
+	//System.out.println("Matching >> " + curCost);
 	matches.add(curCost);
-	System.out.println(matches);
+	//System.out.println(matches);
 	curCost = goToNextMatchedCostInCol(curCost);
-	System.out.println("Going to M C >> " + curCost);
+	//System.out.println("Going to M C >> " + curCost);
 	if(curCost == null)
 	    //No other matched cost in Col, done
 	    return;
 	else {
 	    matches.remove(curCost);
-	    System.out.println("REMOVED COST " + curCost.val + " from matches");
-	    System.out.println(matches);
-	    switchMatches(curCost, c+1);
+	    //System.out.println("REMOVED COST " + curCost.val + " from matches");
+	    //System.out.println(matches);
+	    switchMatches(curCost);
 	}
     }
 
-    private Integer findUncheckedCol() {
+    private Integer findUncheckedZeroCol() {
 	try {
-	    return uncheckedCols.get(0);
+	    return uncheckedZeroCols.get(0);
 	} catch (Exception e) {
 	    return -1;
 	}
@@ -223,6 +230,7 @@ public class OptBottleneck {
      
      */
     private Cost[][] setupCostMatrix() {
+	DecimalFormat twoD = new DecimalFormat("#.##");
 	Cost[][] costMatrix = new Cost[rNodes.size()][sNodes.size()];
 	for (int i = 0; i < sNodes.size(); i++) {
 	    Node sNode = sNodes.get(i);
@@ -231,18 +239,45 @@ public class OptBottleneck {
 		costMatrix[i][j] = new Cost(xyDistance(sNode.xPos, rNode.xPos, sNode.yPos, rNode.yPos), i, j);
 	    }
 	}
+	/**   -----TEST CODE-----
+	Cost[][] costMatrix = new Cost[6][6];
+	double[][] vals = new double[6][6];
+	double[] row1 = {8.6, 4.47, 8.06, 8.25, 8.25, 5};
+	double[] row2 = {4.12, 5, 3.16, 3.61, 2.24, 1.41};
+	double[] row3 = {10.2, 5.1, 10.05, 12.08, 11.05, 8.54};
+	double[] row4 = {12.81, 8.6, 12.21, 11.05, 12.08, 8.54};
+	double[] row5 = {11.18, 6.4, 10.77, 11.18, 11.18, 8};
+	double[] row6 = {6.71, 2.24, 6.32, 8.06, 7, 4.47};
+	vals[0] = row1;
+	vals[1] = row2;
+	vals[2] = row3;
+	vals[3] = row4;
+	vals[4] = row5;
+	vals[5] = row6;
+	for(int i = 0; i < costMatrix.length; i++) {
+	    System.out.println("");
+	    for(int j = 0; j < costMatrix[i].length; j++) {
+		Cost c = new Cost(vals[i][j], i, j);
+		costMatrix[i][j] = c;
+		System.out.print(c.val + "  ");
+	    }
+	}
+	*/
 	return costMatrix;
     }
-
+    
+    
      public void newRandomNodes() {
 	sNodes.clear();
 	rNodes.clear();
+	int maxDistance = 12;
 	Random rand = new Random();
-	for(int i = 0; i < numberNodes; i++) {
+	for(int i = 0; i < nNodes; i++) {
 	    sNodes.add(new Node("x" + (i+1), rand.nextInt(maxDistance), rand.nextInt(maxDistance)));
 	    rNodes.add(new Node("y" + (i+1), rand.nextInt(maxDistance), rand.nextInt(maxDistance)));
 	}
     }
+ 
 
     private double xyDistance(int x1, int x2, int y1, int y2) {
 	return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
@@ -267,11 +302,21 @@ public class OptBottleneck {
 	System.out.println("\n");
     }
 
+    private ArrayList<MatchInfo> getFinalMatches(ArrayList<Cost> matches) {
+	ArrayList<MatchInfo> finalMatches = new ArrayList<MatchInfo>(matches.size());
+	for(Cost c: matches) {
+	    MatchInfo mi = new MatchInfo(sNodes.get(c.i), rNodes.get(c.j), c.val);
+	    finalMatches.add(mi);
+	}
+	return finalMatches;
+    }
+  
     public static void main(String[] args) {
 	OptBottleneck obn = new OptBottleneck();
 	obn.newRandomNodes();
 	obn.run();
     }
+    
 }
 
 class Cost {
@@ -283,7 +328,6 @@ class Cost {
 
     public Cost(double val, int i, int j) {
 	this.val = val;
-	//Unmatched, unchecked by default
 	this.i = i;
 	this.j = j;
     }

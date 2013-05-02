@@ -1,0 +1,77 @@
+
+----------NUM RUNS - 3-------
+
+---------CAMPUS MODEL ONE (n = 100)----------
+
+
+
+-----ITERATION 1------
+OPT BNECK AVG COST >> 24.015   ||   OPT BNECK WORST COST >> 36.1248
+MAX FLOW AVG COST >> 19.1106   ||   MAX FLOW WORST COST >> 49.2443
+NEW ALG 1 AVG COST >> 24.6862   ||   NEW ALG 1 WORST COST >> 72.0902
+NEW ALG 2 AVG COST >> 24.7498   ||   NEW ALG 2 WORST COST >> 72.0902
+GREEDY AVG COST >> 24.7596   ||   GREEDY WORST COST >> 72.0902
+
+-----ITERATION 2------
+OPT BNECK AVG COST >> 24.3191   ||   OPT BNECK WORST COST >> 36.1248
+MAX FLOW AVG COST >> 19.1106   ||   MAX FLOW WORST COST >> 49.2443
+NEW ALG 1 AVG COST >> 24.5859   ||   NEW ALG 1 WORST COST >> 72.9178
+NEW ALG 2 AVG COST >> 24.0845   ||   NEW ALG 2 WORST COST >> 72.9178
+GREEDY AVG COST >> 23.8916   ||   GREEDY WORST COST >> 72.8972
+
+-----ITERATION 3------
+OPT BNECK AVG COST >> 24.2032   ||   OPT BNECK WORST COST >> 36.1248
+MAX FLOW AVG COST >> 19.1106   ||   MAX FLOW WORST COST >> 49.2443
+NEW ALG 1 AVG COST >> 24.395   ||   NEW ALG 1 WORST COST >> 72.0902
+NEW ALG 2 AVG COST >> 24.3661   ||   NEW ALG 2 WORST COST >> 71.6938
+GREEDY AVG COST >> 24.6131   ||   GREEDY WORST COST >> 71.6938
+
+-----------------------AVERAGE COSTS:-----------------------
+
+
+-------------------------Avg. OPT BNECK Cost >> 24.1791
+-------------------------Avg. MAX FLOW Cost >> 19.1106
+-------------------------Avg. NEW ALG 1 Cost >> 24.5557
+-------------------------Avg. NEW ALG 2 Cost >> 24.4001
+-------------------------Avg. GREEDY Cost >> 24.4214
+
+-----------------------AVERAGE BOTTLENECK COSTS:-----------------------
+
+
+-------------------------Avg. OPT BNECK Bottleneck Cost >> 36.1248
+-------------------------Avg. MAX FLOW Bottleneck Cost >> 49.2443
+-------------------------Avg. NEW ALG 1 Bottleneck Cost >> 72.3661
+-------------------------Avg. NEW ALG 2 Bottleneck Cost >> 72.2339
+-------------------------Avg. GREEDY Bottleneck Cost >> 72.2271
+
+FOR CAMPUS ONE (no additional spaces):
+
+OPT BNECK WINS 
+
+AVERAGE >> 0
+WORST >> 3
+BEST >> 0
+
+MAX FLOW WINS 
+
+AVERAGE >> 3
+WORST >> 0
+BEST >> 3
+
+NEW ALG 1 WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3
+
+NEW ALG 2 WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3
+
+GREEDY WINS 
+
+AVERAGE >> 0
+WORST >> 0
+BEST >> 3
