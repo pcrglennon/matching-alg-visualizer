@@ -6,9 +6,13 @@ public class CampusModelOne extends ParkingModel {
 	super();
     }
 
-    public ArrayList<Node> getNewSpots() {
-	setupSpots();
+    public ArrayList<Node> getNewSpots(boolean extraCap) {
+	setupSpots(extraCap);
 	return spots;
+    }
+
+    public ArrayList<Node> getNewSpots() {
+	return getNewSpots(false);
     }
 
     public ArrayList<Node> getNewDestinations() {
@@ -25,7 +29,6 @@ public class CampusModelOne extends ParkingModel {
 	    destinations.add(new Node("x" + xCount,2,2));
 	    xCount++;
 	}
-
 	for (int i = 0; i < 8; i++) {
 	    destinations.add(new Node("x" + xCount,3,6));
 	    xCount++;
@@ -122,15 +125,19 @@ public class CampusModelOne extends ParkingModel {
 		yCount++;
 	    }
 	}
+	if(extraCap) {
+	    for(int x = 15; x < 32; x++) {
+		spots.add(new Node("y" + yCount,x,0));
+		yCount++;
+	    }
+	}
     }
 
-    /**
     public static void main(String[] args) {
 	CampusModelOne cm1 = new CampusModelOne();
 	cm1.setupSpots(false);
 	cm1.setupDestinations();
 	cm1.shuffleDestinationOrder();
     }
-    */
 
 }

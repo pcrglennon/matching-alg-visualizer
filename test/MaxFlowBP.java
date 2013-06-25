@@ -49,7 +49,7 @@ public class MaxFlowBP {
 	setInitialNodePrices();
 	int counter = 1;
 	while(!allRequestNodesMatched()) {
-	    //System.out.println("\nITERATION >> " + counter);
+	    System.out.println("\nMF (Inc. Set) ITERATION >> " + counter);
 	    HashMap<Node, PathInfo> pathsFromSource = new Dijkstra(g).runAlgorithm();
 	    PathInfo minPathToSink = getMinPathToSink(pathsFromSource);
 	    //System.out.println("PATH\n" + minPathToSink.path);
@@ -124,6 +124,8 @@ public class MaxFlowBP {
      * index - Index of new Request Node
      */
     public void addRequestNode(Node r, int index) {
+	//Unmatched by default
+	r.setMatched(false);
 	g.yNodes.put(index, r);
 	g.addEdgeToSink(index);
 	int sIndex = 1;

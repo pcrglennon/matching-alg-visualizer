@@ -25,6 +25,7 @@ public class PermutationMatch {
 	MaxFlowBP mf = new MaxFlowBP(g);
 	ArrayList<Graph.Edge> mfMatching;
 	while(rIndex < rNodes.size()) {
+	    System.out.println("Perm iteration >> " + (rIndex+1));
 	    mf.unmatchRequestNodes();
 	    mf.addRequestNode(rNodes.get(rIndex), rIndex+1);
 	    mfMatching = mf.runIncompleteSet();
