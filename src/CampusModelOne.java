@@ -1,26 +1,49 @@
 import java.util.ArrayList;
 
+/**
+ * A Parking model which simulates a simplified (and small) campus parking scheme.
+ *
+ * 100 parking spots and 100 destinations (most are shared btw. commuters)
+ *
+ * Features a number of buildings of varying sizes in center of campus, with a few
+ * parking lots of varying sizes around them
+ * 
+ * See the parking_model_images folder for a picture
+ */
+
 public class CampusModelOne extends ParkingModel {
 
     public CampusModelOne() {
 	super();
     }
 
+    /**
+     * Returns a new copy of the array of parking spots
+     *
+     * extraCap boolean: returns parking spots with additional 17 spots
+     * (known as Campus Model One w/ Extra Capacity)
+     */
     public ArrayList<Node> getNewSpots(boolean extraCap) {
 	setupSpots(extraCap);
 	return spots;
     }
-
+    
     public ArrayList<Node> getNewSpots() {
 	return getNewSpots(false);
     }
 
+    /**
+     * Returns an array of destinations in randomized order
+     */
     public ArrayList<Node> getNewDestinations() {
 	setupDestinations();
 	shuffleDestinationOrder();
 	return destinations;
     }
     
+    /**
+     * Constructs the destinations array
+     */
     @Override
     protected void setupDestinations() {
 	destinations.clear();
@@ -83,11 +106,17 @@ public class CampusModelOne extends ParkingModel {
 	}
     }
 
+    /**
+     * Default setupSpots constructs spots w/o extra capacity spots
+     */
     @Override
     protected void setupSpots() {
 	setupSpots(false);
     }
 
+    /** 
+     * Sets up the spots array
+     */
     protected void setupSpots(boolean extraCap) {
 	spots.clear();
 	int yCount = 1;
@@ -132,7 +161,10 @@ public class CampusModelOne extends ParkingModel {
 	    }
 	}
     }
-
+    
+    /**
+     * For testing
+     */
     public static void main(String[] args) {
 	CampusModelOne cm1 = new CampusModelOne();
 	cm1.setupSpots(false);

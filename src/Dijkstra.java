@@ -1,8 +1,19 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * It's weird to encapsulate an algorithm as an object.  I didn't plan out
+ * the whole structure of this project very well!
+ *
+ * That said, this class will run Dijkstra's Algorithm on a Graph and return
+ * the distances from the source node to all other nodes
+ *
+ * There are many commented-out println() statements, which were useful for
+ * debugging
+ */
 public class Dijkstra {
 
+    //
     private Graph g;
     
     private ArrayList<Node> unvisitedNodes;
@@ -16,6 +27,9 @@ public class Dijkstra {
      */
     private HashMap<Node, PathInfo> pathsFromSource;
 
+    /**
+     * Initialization of the arrays and pathsFromSource
+     */
     public Dijkstra(Graph g) {
 	this.g = g;
 	unvisitedNodes = new ArrayList<Node>(g.xNodes.values());

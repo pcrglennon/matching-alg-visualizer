@@ -17,6 +17,9 @@ public class ConfigPanel extends JPanel {
     private NumericTextField animDelayField;
     private JCheckBox drawDistanceCB;
 
+    /**
+     * Constructor - initializes components 
+     */
     public ConfigPanel() {
 	super();
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -33,6 +36,9 @@ public class ConfigPanel extends JPanel {
 	addComponentsToPanel();
     }
 
+    /**
+     * Use GridBagLayout to specify the location of each component
+     */
     private void addComponentsToPanel() {
 	setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
@@ -74,6 +80,10 @@ public class ConfigPanel extends JPanel {
 	add(drawDistanceCB, c);
     }
 
+    /**
+     * Return the value of numberNodesField (or 0 if field is empty)
+     * Used by VisualMatchWindow, so it knows how many nodes to lay out
+     */
     public int getNumberNodes() {
 	int toReturn;
 	try {
@@ -84,6 +94,9 @@ public class ConfigPanel extends JPanel {
 	return toReturn;
     }
 
+    /**
+     * Similar to getNumberNodes, for animation delay
+     */
     public int getAnimDelay() {
 	int toReturn;
 	try {
@@ -94,6 +107,9 @@ public class ConfigPanel extends JPanel {
 	return toReturn;
     }
 
+    /**
+     * Returns the value of the draw distance enabled checkbox
+     */
     public boolean drawDistanceEnabled() {
 	return drawDistanceCB.isSelected();
     }

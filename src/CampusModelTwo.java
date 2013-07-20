@@ -1,22 +1,42 @@
 import java.util.ArrayList;
 
+/**
+ * A Parking model which simulates a simplified (and small) campus parking scheme.
+ *
+ * 100 parking spots and 100 destinations (most are shared btw. commuters)
+ *
+ * Features a number of buildings of varying sizes in center of campus, with two
+ * large and equal-sized parking lots at the north and south ends of campus
+ * 
+ * See the parking_model_images folder for a picture
+ */
+
 public class CampusModelTwo extends ParkingModel {
 
     public CampusModelTwo() {
 	super();
     }
 
+    /**
+     * Returns a new copy of the array of parking spots
+     */
     public ArrayList<Node> getNewSpots() {
 	setupSpots();
 	return spots;
     }
-
+    
+    /**
+     * Returns an array of destinations in randomized order
+     */
     public ArrayList<Node> getNewDestinations() {
 	setupDestinations();
 	shuffleDestinationOrder();
 	return destinations;
     }
-    
+
+    /**
+     * Constructs the destinations array
+     */    
     @Override
     protected void setupDestinations() {
 	destinations.clear();
@@ -79,6 +99,12 @@ public class CampusModelTwo extends ParkingModel {
 	}
     }
 
+    /**
+     * Constructs the spots array
+     *
+     * In this model, there are two large parking lots at the north and south ends
+     * of campus, each w/ 50 spots
+     */
     @Override
     protected void setupSpots() {
 	spots.clear();

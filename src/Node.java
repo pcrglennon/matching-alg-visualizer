@@ -1,3 +1,8 @@
+
+/**
+ * Node representation, contains the x and y position, the node's id, price
+ * and whether or not it is matched
+ */
 public class Node {
 
     public int xPos;
@@ -5,6 +10,7 @@ public class Node {
 
     public String id;
 
+    //Price used by MaxFlowBP algorithm
     private double price;
     private boolean matched;
 
@@ -37,6 +43,9 @@ public class Node {
 	matched = isMatched;
     }
 
+    /**
+     * Print out details of the Node in a useful manner
+     */
     @Override
     public String toString() {
 	return "N id(" + id + ") at (" + xPos + "," + yPos + ")";

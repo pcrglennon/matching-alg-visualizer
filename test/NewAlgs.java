@@ -2,6 +2,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * The two Greedy Threshold Algorithms, which were originally just referred
+ * to as "The New Algorithms"
+ *
+ * The two algorithms are nearly identical.  Both are based on the concept of
+ * the "desirability score" of a parking spot/server node, which is simply the
+ * average distance of the spot to all destinations/request nodes.  A lower 
+ * desirabilty score means the spot is more desirable
+ *
+ * The algorithms find the two closest spots for each destination, and will pick
+ * the closer of the two IF its desirabilty score is above a certain threshold.
+ * The determination of the threshold is dependent on the model the algorithms
+ * run on, and tests were done to determine the optimal threshold for each
+ * model tested.  See the tests (TestCampusOne, TestCampusTwo, etc.) for the
+ * threshold for each Parking Model.  The nature of these algorithms, which
+ * must know the location of each destination in advance (to calculate the
+ * desirabilty scores) means it can only be used on models with fixed
+ * destinations, like the parking models
+ *
+ * The difference between the two algorithms is that NewAlgTwo (or GT2) will 
+ * recalculate the desirabilty score of each spot every time a spot is matched
+ * to a destination, while GT1 uses the original desirabilty scores made
+ * before any matchings
+ */
 public class NewAlgs {
     
     private ArrayList<Node> sNodes; // Parking spots
@@ -26,6 +50,9 @@ public class NewAlgs {
 
     /**--------------------------ALG ONE ---------------------*/
 
+    /**
+     * Run NewAlgOne, or GT1.  See comments at top of class for description
+     */
     public ArrayList<MatchInfo> runAlgOne() {
 	//Create copy of sNodes (need to remove nodes when matched)
 	ArrayList<Node> sNodesCopy = new ArrayList<Node>(sNodes);
@@ -74,6 +101,9 @@ public class NewAlgs {
 
     /**------------------------ALG TWO-----------------------*/
 
+    /**
+     * Run NewAlgTwo, or GT2
+     */
     public ArrayList<MatchInfo> runAlgTwo() {
 	//Create copy of sNodes (need to remove nodes when matched)
 	ArrayList<Node> sNodesCopy = new ArrayList<Node>(sNodes);
@@ -132,6 +162,11 @@ public class NewAlgs {
 	this.threshold = threshold;
     }
 
+    /**
+     * Calculate the desirabilty score of each parking spot/server node
+     * as the average distance from the spot to each destination/
+     * request node
+     */
     public void calculateDScores() {
 	dScores = new HashMap<String, Double>();
 	for(Node s: sNodes) {
@@ -143,6 +178,10 @@ public class NewAlgs {
 	}
     }
     
+    /**
+     * Update the D. Scores for each unmatched spot to reflect that a
+     * destination, which has just been matched, is now unavailable
+     */
     private void updateDScores(Node matched) {
 	for(Node s: unmatchedSNodes) {
 	    int nodesUnmatched = unmatchedSNodes.size();

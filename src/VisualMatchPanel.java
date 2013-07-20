@@ -5,15 +5,35 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+/**
+ * Extension of a JPanel which displays a simple animation of nodes being matched
+ *
+ * The only real value of this is to display a Greedy Online matching.  It was made as
+ * a tool to demonstrate this matching, and does not show the performance of other
+ * matching algorithms.  However, if passed the final matching from any algorithm, it
+ * could show that, though not the steps taken to achieve that matching
+ */
 public class VisualMatchPanel extends JPanel {
 
+    /**
+     * The speed of animation - the higher the slower
+     *
+     * User can configure this via the ConfigPanel
+     */
     private int animDelay;
     private int maxDistance;
+    /**
+     * If this is set to true, the program will display the distance/cost of each match
+     * along the line that represents the match
+     *
+     * User-configurable via the ConfigPanel
+     */
     private boolean drawDistance = true;
 
     private ArrayList<Node> rNodes;
     private ArrayList<Node> sNodes;
 
+    //Used for animation purposes
     private ArrayList<MatchInfo> onlineMatchesToDraw;
     private ArrayList<MatchInfo> offlineMatchesToDraw;
     
@@ -65,6 +85,9 @@ public class VisualMatchPanel extends JPanel {
 
     /**
      * Draw each online match one by one
+     *
+     * The Timer section adds each match to be drawn on a delay.  When repaint() is
+     * called, all matches in onlineMatchesToDraw are drawn
      */
     public void drawOnlineGreedyMatch(final MatchInfo[] onlineMatches) {
 	onlineMatchDrawn = true;
@@ -85,6 +108,9 @@ public class VisualMatchPanel extends JPanel {
 
     /**
      * Draw each offline match one by one
+     *
+     * The Timer section adds each match to be drawn on a delay.  When repaint() is
+     * called, all matches in offlineMatchesToDraw are drawn
      */
     public void drawOfflineGreedyMatch(final MatchInfo[] offlineMatches) {
 	offlineMatchDrawn = true;
@@ -119,6 +145,11 @@ public class VisualMatchPanel extends JPanel {
 	repaint();
     }
 
+    /**
+     * Overriden method from JPanel
+     *
+     * Does the graphical work
+     */
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	g.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -131,12 +162,15 @@ public class VisualMatchPanel extends JPanel {
 	for(int i = 0; i <= maxDistance; i++) {
 	    g.drawLine(i*20, 0, i*20, 400);
 	}
+	//Draw the server nodes, along with their indices
+	//NOTE - double-digit numbers will be drawn in an ugly fashion
 	for(Node servXY: sNodes) {
 	    g.setColor(Color.DARK_GRAY);
 	    g.fillRect(servXY.xPos * 20, servXY.yPos * 20, 20, 20);
 	    g.setColor(Color.WHITE);
 	    g.drawString("" + (sNodes.indexOf(servXY) + 1), (servXY.xPos*20) + 3, (servXY.yPos*20) + 17);
 	}
+	//Draw the request nodes and indices
 	for(Node reqXY: rNodes) {
 	    g.setColor(Color.RED);
 	    g.fillRect(reqXY.xPos*20, reqXY.yPos*20, 20, 20);
@@ -144,7 +178,7 @@ public class VisualMatchPanel extends JPanel {
 	    g.drawString("" + (rNodes.indexOf(reqXY) + 1), (reqXY.xPos*20) + 3, (reqXY.yPos*20) + 17);
 	}
 	g.setColor(Color.BLACK);
-	//TODO - Wider Lines
+	//Draw the lines that indicate matches
 	for(MatchInfo match: onlineMatchesToDraw) {
 	    g.drawLine(match.rNode.xPos*20, match.rNode.yPos*20, match.sNode.xPos*20, match.sNode.yPos*20);
 	    //If drawDistance is enabled, draw the distance between the nodes

@@ -1,10 +1,25 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The Optimal Offline Matching Algorithm
+ *
+ * High-Level description: add a source and sink node to a Bipartite set in
+ * order to form a Directed Graph, then repeatedly find "augmenting paths" through
+ * graph, and match nodes along that path.  For a more detailed explanation, see
+ * textbook "Algorithm Design" by Jon Kleinberg and Eva Tardos, chapter 7, or 
+ * search for Max Flow Algorithm adapted to Weighted Bipartite Matching
+ *
+ * The implementation of this algorithm is based on Kleinberg and Tardos' 
+ * description in their textbook
+ *
+ * Commented-out println() statements were used in debugging
+ */
 public class MaxFlowBP {
 
     private Graph g;
-
+    
+    // The set of edges which represent the matching
     private ArrayList<Graph.Edge> matching;
     
     public MaxFlowBP(Graph g) {
@@ -12,17 +27,28 @@ public class MaxFlowBP {
 	matching = new ArrayList<Graph.Edge>();
     }
 
+    /**
+     * Run the Algorithm:
+     *
+     * Setup the intial node prices, then iteratively add augmenting paths
+     * until no more can be added
+     *
+     * Returns an ArrayList of Edges, not MatchInfos.  This is another result
+     * of poor planning!
+     */
     public ArrayList<Graph.Edge> runAlgorithm() {
 	setInitialNodePrices();
 	int counter = 1;
 	while(!isPerfectMatching()) {
 	    System.out.println("\nMF ITERATION >> " + counter);
+	    //Run Dijkstra to get the cost from source node to all other nodes
 	    HashMap<Node, PathInfo> pathsFromSource = new Dijkstra(g).runAlgorithm();
 	    PathInfo minPathToSink = getMinPathToSink(pathsFromSource);
 	    //System.out.println("\nPATH\n" + minPathToSink.path);
 	    augmentPath(minPathToSink);
 	    //change prices
 	    for(Node y: g.yNodes.values()){
+		//Don't modify the price of the sink node!
 		if(!y.id.equals("sink")) {
 		    y.setPrice(y.getPrice() + pathsFromSource.get(y).distance);
 		}
@@ -40,10 +66,11 @@ public class MaxFlowBP {
 	return matching;
     }
 
-    /*
+    /**
      * Similar to runAlgorithm(), but terminates when all REQUEST nodes are matched
      */
     public ArrayList<Graph.Edge> runIncompleteSet() {
+	// As this is called repeatedly by PermutationMatch, graph must be reset
 	matching.clear();
 	resetGraph();
 	setInitialNodePrices();
@@ -70,6 +97,16 @@ public class MaxFlowBP {
 	return matching;
     }
 
+    /**
+     * Finds the minimum-cost path to the sink node
+     *
+     * Essentially, finds the unmatched node in yNodes set with minimum distance
+     * from source
+     *
+     * As all sourcenode-to-xNode and yNode-to-sinknode edges are cost-0, this
+     * basically returns the minimum-cost path from an unmatched xNode to
+     * an unmatched yNode
+     */ 
     private PathInfo getMinPathToSink(HashMap<Node, PathInfo> pathsFromSource) {
 	Node minDistYNode = null;
 	double minDistToSink = Double.MAX_VALUE;
@@ -84,6 +121,14 @@ public class MaxFlowBP {
 	return minPathToSink;
     }
     
+    /**
+     * Matches unmatched nodes along path, and unmatches matched nodes
+     * along path
+     *
+     * Matched nodes may be along path in case of a backwards edge being
+     * included on the path (again, see the textbook or another description of
+     * the algorithm for a more in-depth explanation)
+     */
     private void augmentPath(PathInfo minPathToSink) {
 	for(Graph.Edge e: minPathToSink.path) {
 	    if(e.isSourceEdge() || e.isSinkEdge()) {
@@ -137,6 +182,11 @@ public class MaxFlowBP {
 	}
     }
 
+    /**
+     * Returns true if all nodes (save sink and source nodes) are matched
+     *
+     * By construction, sink and source will never be matched
+     */
     private boolean isPerfectMatching() {
 	for(Node n: g.xNodes.values()) {
 	    if(!n.id.equals("src") && !n.isMatched()) {
@@ -153,6 +203,9 @@ public class MaxFlowBP {
 
     /**
      * Only check if all request nodes are matched
+     *
+     * Used when MaxFlow is being run on an incomplete set of request nodes.
+     * See runIncompleteSet()
      */
     private boolean allRequestNodesMatched() {
 	for(Node n: g.yNodes.values()) {
@@ -171,7 +224,11 @@ public class MaxFlowBP {
 	    n.setMatched(false);
 	}
     }
-
+    
+    /**
+     * See textbook/other algorithm description to understand why prices
+     * are set as such.  I don't fully understand it myself
+     */
     private void setInitialNodePrices() {
 	//All Nodes created w/ default price of 0, so xNodes is already set
 	for(Node n: g.yNodes.values()) {
@@ -179,7 +236,10 @@ public class MaxFlowBP {
 	    n.setPrice(minDistIntoN);
 	}
     }
-    
+
+    /**
+     * Returns the cost of minimum-cost edge into Node n (a yNode)
+     */
     private double getMinimumDistanceIntoNode(Node n) {
 	double minDist = Double.MAX_VALUE;
 	for(Graph.Edge e: g.edges) {
@@ -187,7 +247,7 @@ public class MaxFlowBP {
 		if(e.getDistance() < minDist) {
 		    minDist = e.getDistance();
 		}
-	    }
+	    }n
 	}
 	return minDist;
     }

@@ -32,8 +32,13 @@ class NumericTextField extends JTextField {
     
     private class NumericDocument extends PlainDocument {
 	
+	// The Regex pattern for any number (0+) of digits
 	private final Pattern DIGITS = Pattern.compile("\\d*");
 	
+	/**
+	 * Only accept the user input if it is numeric, and stays below
+	 * the maximum length
+	 */
 	@Override
 	public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 	    if(str != null && DIGITS.matcher(str).matches() && getLength() + str.length() <= maxDigits) {

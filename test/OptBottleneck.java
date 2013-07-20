@@ -7,6 +7,12 @@ import java.text.DecimalFormat;
 
 /**
  * An implementation of Gross' Optimal Bottleneck Assignment Algorithm (1959)
+ *
+ * High-level description: construct a "cost matrix" (see below), and
+ * select any possible complete matching. Then repeatedly look for cycles in
+ * the matrix which can reduce the maximum cost in the matching
+ *
+ * Look up Gross' original paper for more techincal details
  */
 public class OptBottleneck {
 
@@ -34,7 +40,8 @@ public class OptBottleneck {
     private ArrayList<Integer> uncheckedZeroCols;
     //Holds any "checked" zero columns, which are NOT the same as a column w/o a zero
     private ArrayList<Integer> checkedZeroCols;
-
+   
+    //The current set of server-request matches
     private ArrayList<Cost> matches;
 
     public OptBottleneck() {
@@ -46,7 +53,14 @@ public class OptBottleneck {
 	this.sNodes = sNodes;
 	this.rNodes = rNodes;
     }
-    
+
+    /**
+     * Initialize matrix and select cost[i][j] to be matched from i=j=0 to i=j=n
+     *
+     * Then find cycles which can reduce the maximum cost in matches
+     *
+     * The 'Rule x' comments indicate the Rules described in Gross' paper
+     */
     public ArrayList<MatchInfo> run() {
 	costMatrix = setupCostMatrix();
 	//These structures are used by the algorithm
@@ -132,6 +146,9 @@ public class OptBottleneck {
 	}
     }
 
+    /**
+     * Get the first item in uncheckedZeros (if any, return -1 otherwise)
+     */
     private Integer findUncheckedZeroCol() {
 	try {
 	    return uncheckedZeroCols.get(0);
@@ -140,6 +157,9 @@ public class OptBottleneck {
 	}
     }
 
+    /**
+     * Return the checked cost in current row
+     */
     private Cost goToCheckedCostInRow(int curRow) {
 	Cost end = null;
 	for(int i = 0; i < costMatrix.length; i++) {
@@ -213,6 +233,9 @@ public class OptBottleneck {
 	return matches;
     }
 
+    /**
+     * Returns the current bottleneck (highest) cost in matches
+     */
     private Cost getBottleneckCost() {
 	double b = Double.MIN_VALUE;
 	Cost bNeckCost = null;
@@ -226,8 +249,7 @@ public class OptBottleneck {
     }
 
     /**
-     * Setup a cost matrix:
-     
+     * Set up the matrix
      */
     private Cost[][] setupCostMatrix() {
 	DecimalFormat twoD = new DecimalFormat("#.##");
@@ -266,7 +288,9 @@ public class OptBottleneck {
 	return costMatrix;
     }
     
-    
+    /**
+     * Generate a new set of random nodes (for testing)
+     */
      public void newRandomNodes() {
 	sNodes.clear();
 	rNodes.clear();
@@ -278,11 +302,13 @@ public class OptBottleneck {
 	}
     }
  
-
     private double xyDistance(int x1, int x2, int y1, int y2) {
 	return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
+    /**
+     * For testing
+     */
     private void printStuff() {
 	System.out.println("\nS NODES\n");
 	for(Node s: sNodes) {
@@ -302,6 +328,10 @@ public class OptBottleneck {
 	System.out.println("\n");
     }
 
+    /**
+     * Essentially returns matches, but in the form of MatchInfo objects, 
+     * which are used by the test code
+     */
     private ArrayList<MatchInfo> getFinalMatches(ArrayList<Cost> matches) {
 	ArrayList<MatchInfo> finalMatches = new ArrayList<MatchInfo>(matches.size());
 	for(Cost c: matches) {
@@ -311,6 +341,9 @@ public class OptBottleneck {
 	return finalMatches;
     }
   
+    /**
+     * For testing
+     */
     public static void main(String[] args) {
 	OptBottleneck obn = new OptBottleneck();
 	obn.newRandomNodes();
@@ -319,6 +352,10 @@ public class OptBottleneck {
     
 }
 
+/**
+ * Container class for the cost of a matching, used in the cost matrix.  Contains the
+ * row index, column index, and the cost itself
+ */
 class Cost {
 
     //The distance or cost value
